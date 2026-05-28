@@ -40,7 +40,7 @@ namespace SV_UniqueCards
                 ablationCatalysed,
                 ablationCatalysed,
                 ablationCatalysed,
-                new (ModContentManager.GetModCardName<NorthWinds>()),
+                new (ModContentManager.GetModCardName<Ablation>()),
                 new (ModContentManager.GetModCardName<NorthWinds>()),
                 new (ModContentManager.GetModCardName<NorthWinds>()),
             };
