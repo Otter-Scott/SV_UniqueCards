@@ -27,7 +27,7 @@ namespace SV_UniqueCards
         protected override void LateRegisterMod()
         {
 
-            PlayerCardData ablationCatalysed = new(ModContentManager.GetModCardName<Fusion>())
+            /*PlayerCardData ablationCatalysed = new(ModContentManager.GetModCardName<Fusion>())
             {
                 Component = ModContentManager.GetModComponentName<TriggerComponent>()
             };
@@ -48,7 +48,7 @@ namespace SV_UniqueCards
             {
                 targetPilot = PilotName.Noel,
                 startingCards = RoxyDeckManifest.ToILCPP()
-            });
+            });*/
 
         }
 
