@@ -279,7 +279,7 @@ namespace SV_UniqueCards
 
             for (int i = 0; i < 10; i++)
             {
-                string resourceName = $"Please_work_SV.gridfx.Fusion_{i:D2}.png";
+                string resourceName = $"SV_UniqueCards.gridfx.Fusion_{i:D2}.png";
 
                 using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 {
