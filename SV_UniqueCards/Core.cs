@@ -40,9 +40,9 @@ namespace SV_UniqueCards
                 ablationCatalysed,
                 ablationCatalysed,
                 ablationCatalysed,
-                new (ModContentManager.GetModCardName<Ablation>()),
-                new (ModContentManager.GetModCardName<Ablation>()),
-                new (ModContentManager.GetModCardName<Ablation>()),
+                new (ModContentManager.GetModCardName<NorthWinds>()),
+                new (ModContentManager.GetModCardName<NorthWinds>()),
+                new (ModContentManager.GetModCardName<NorthWinds>()),
             };
             RegisterContentMod(new PilotModification(PilotName.Roxy)
             {
