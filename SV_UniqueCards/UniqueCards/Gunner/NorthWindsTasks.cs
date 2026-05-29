@@ -198,10 +198,13 @@ namespace SV_UniqueCards
 
             foreach (var cardID in taskInstance.EncounterModel.CardPlayModel.GetPile(Pile.Hand).ToMono().ToList())
             {
-
-                yield return taskInstance.TaskEngine.ProcessTask(
-                    new SetCardFrozenTask(cardID.BoxIl2CppObject(), true, true)
-                ).Cast<Il2CppSystem.Object>();
+                CardModel card = taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID());
+                if (card.IsFrozen)
+                {
+                    yield return taskInstance.TaskEngine.ProcessTask(
+                        new SetCardFrozenTask(cardID.BoxIl2CppObject(), true, true)
+                    ).Cast<Il2CppSystem.Object>();
+                }
             }
 
 

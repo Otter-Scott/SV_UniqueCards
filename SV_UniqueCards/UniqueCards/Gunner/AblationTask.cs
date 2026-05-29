@@ -115,14 +115,14 @@ namespace SV_UniqueCards
 
             foreach (Pile currentPile in pilesToScan)
             {
-                foreach (var idValue in taskInstance.EncounterModel.CardPlayModel.GetPile(currentPile).ToMono().ToList())
+                foreach (var cardID in taskInstance.EncounterModel.CardPlayModel.GetPile(currentPile).ToMono().ToList())
                 {
-                    CardModel card = taskInstance.EncounterModel.GetModelItem<CardModel>(idValue.ToID());
+                    CardModel card = taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID());
 
                     if (card.Traits.Contains(CardTrait.Junk) || card.IsBurnt)
                     {
                         yield return taskInstance.TaskEngine.ProcessTask(
-                            new PurgeCardTask(idValue.BoxIl2CppObject())
+                            new PurgeCardTask(cardID.BoxIl2CppObject())
                         ).Cast<Il2CppSystem.Object>();
                     }
                 }
