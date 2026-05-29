@@ -200,7 +200,7 @@ namespace SV_UniqueCards
             {
 
                 yield return taskInstance.TaskEngine.ProcessTask(
-                    new SetCardFrozenTask(cardID.BoxIl2CppObject(), true)
+                    new SetCardFrozenTask(cardID.BoxIl2CppObject(), true, true)
                 ).Cast<Il2CppSystem.Object>();
             }
 
