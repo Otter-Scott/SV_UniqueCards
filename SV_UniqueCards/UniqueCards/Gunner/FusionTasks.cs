@@ -20,9 +20,9 @@ using Il2CppCollections = Il2CppSystem.Collections.Generic;
 
 namespace SV_UniqueCards
 {
-    public class FusionMain : AModTask
+    public class Fusion_1 : AModTask
     {
-        public FusionMain() 
+        public Fusion_1() 
         { 
         }
 
@@ -32,7 +32,7 @@ namespace SV_UniqueCards
 
             if (taskInstance.EncounterModel.CardPlayModel.GetPile(Pile.Hand).ToMono().Count > 1)
             {
-                var selection1 = new Selection(
+                Selection selection1 = new(
                     new AndCondition(
                         new IsTypeCondition<CardID>(new TargetValue()),
                         new CardInHandButNotBeingPlayedCondition(new TargetValue())
@@ -40,7 +40,7 @@ namespace SV_UniqueCards
                     selectionDescriptor: SelectionDescriptor.CardToPurge
                 );
 
-                var Task1 = new FusionCheck(new TargetValue()).Convert();
+                Il2CppStarVaders.CustomTask Task1 = new FusionCheck(new TargetValue()).Convert();
 
                 yield return taskInstance.TaskEngine.ProcessTask(
                     new SelectionTask(
@@ -51,12 +51,12 @@ namespace SV_UniqueCards
                     )
                 ).Cast<Il2CppSystem.Object>();
 
-                var selection2 = new Selection(
+                Selection selection2 = new(
                     new IsTypeCondition<Coord>(new TargetValue()),
                     selectionDescriptor: SelectionDescriptor.Tile
                 );
 
-                var Task2 = new FusionStrike(new TargetValue()).Convert();
+                Il2CppStarVaders.CustomTask Task2 = new FusionStrike(new TargetValue()).Convert();
 
                 yield return taskInstance.TaskEngine.ProcessTask(
                     new SelectionTask(
@@ -78,19 +78,20 @@ namespace SV_UniqueCards
         }
     }
 
-    public class FusionMainComp : AModTask
+    public class Fusion_2 : AModTask
     {
-        public FusionMainComp() 
+        public Fusion_2() 
         { 
         }
 
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
-            if (taskInstance.IsPreviewModeView) yield break;
+            if (taskInstance.IsPreviewModeView) 
+                yield break;
 
             if (taskInstance.EncounterModel.CardPlayModel.GetPile(Pile.Hand).ToMono().Count > 2)
             {
-                var selection1 = new Selection(
+                Selection selection1 = new(
                     new AndCondition(
                         new IsTypeCondition<CardID>(new TargetValue()),
                         new CardInHandButNotBeingPlayedCondition(new TargetValue())
@@ -98,7 +99,7 @@ namespace SV_UniqueCards
                     selectionDescriptor: SelectionDescriptor.CardToPurge
                 );
 
-                var Task1 = new FusionCheck(new TargetValue()).Convert();
+                Il2CppStarVaders.CustomTask Task1 = new FusionCheck(new TargetValue()).Convert();
 
                 yield return taskInstance.TaskEngine.ProcessTask(
                     new SelectionTask(
@@ -118,12 +119,12 @@ namespace SV_UniqueCards
                     )
                 ).Cast<Il2CppSystem.Object>();
 
-                var selection2 = new Selection(
+                Selection selection2 = new(
                     new IsTypeCondition<Coord>(new TargetValue()),
                     selectionDescriptor: SelectionDescriptor.Tile
                 );
 
-                var Task2 = new FusionStrike(new TargetValue()).Convert();
+                Il2CppStarVaders.CustomTask Task2 = new FusionStrike(new TargetValue()).Convert();
 
                 yield return taskInstance.TaskEngine.ProcessTask(
                     new SelectionTask(
@@ -163,7 +164,7 @@ namespace SV_UniqueCards
 
             Il2CppSystem.Object selectedCard = taskInstance.GetArg<Il2CppSystem.Object>(ArgKey.CardID);
 
-            var cardModel = taskInstance.EncounterModel.GetModelItem<CardModel>(selectedCard.Unbox<CardID>().ToID());
+            CardModel cardModel = taskInstance.EncounterModel.GetModelItem<CardModel>(selectedCard.Unbox<CardID>().ToID());
 
             if (cardModel.CardName == ModContentManager.GetModCardName<Fusion>())
             {
@@ -202,20 +203,20 @@ namespace SV_UniqueCards
 
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
-            if (taskInstance.IsPreviewModeView)
-                yield break;
+            Coord chosenCoords = taskInstance.GetArg<Il2CppSystem.Object>(ArgKey.Coord).Unbox<Coord>();
 
-            var chosenCoords = taskInstance.GetArg<Il2CppSystem.Object>(ArgKey.Coord).Unbox<Coord>();
-
-            MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(chosenCoords).transform.position));
-
-            Coord[] strikeCoords = new Coord[]
+            if (!taskInstance.IsPreviewModeView)
             {
+                MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(chosenCoords).transform.position));
+            }
+
+            Coord[] strikeCoords =
+            [
             new Coord(chosenCoords.x, chosenCoords.y + 1),
             new Coord(chosenCoords.x, chosenCoords.y - 1),
             new Coord(chosenCoords.x - 1, chosenCoords.y),
             new Coord(chosenCoords.x + 1, chosenCoords.y)
-            };
+            ];
 
             foreach (Coord target in strikeCoords)
             {
@@ -230,9 +231,6 @@ namespace SV_UniqueCards
                     ).Cast<Il2CppSystem.Object>();
                 }
             }
-
-            
-
         }
 
         private static System.Collections.IEnumerator PlayStandaloneVFX(UnityEngine.Vector3 spawnPosition)
@@ -279,7 +277,7 @@ namespace SV_UniqueCards
 
             for (int i = 0; i < 10; i++)
             {
-                string resourceName = $"SV_UniqueCards.gridfx.Fusion_{i:D2}.png";
+                string resourceName = $"SV_UniqueCards.gridfx.Gunner.Fusion_{i:D2}.png";
 
                 using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 {

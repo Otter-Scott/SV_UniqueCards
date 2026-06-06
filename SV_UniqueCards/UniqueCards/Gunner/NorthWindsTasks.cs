@@ -17,19 +17,20 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.Experimental.TerrainAPI.TerrainUtility.TerrainMap;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.ReloadAttribute;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
 
 namespace SV_UniqueCards
 {
-    public class NorthWindsPull : AModTask
+    public class NorthWinds_1 : AModTask
     {
-        public NorthWindsPull()
+        public NorthWinds_1()
         {
         }
 
-        public NorthWindsPull(TargetValue targetValue)
+        public NorthWinds_1(TargetValue targetValue)
         {
             SetArg(ArgKey.Coord, targetValue);
         }
@@ -37,16 +38,10 @@ namespace SV_UniqueCards
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
 
-            var grid = taskInstance.EncounterModel.GridModel;
-
-            var enemies = grid.GetAllEnemies(ignoreSort: false).ToMono();
+            var enemies = taskInstance.EncounterModel.GridModel.GetAllEnemies(ignoreSort: false).ToMono();
 
             var sortedEnemies = enemies
-                .Select(id => new
-                {
-                    EntityID = id,
-                    Coord = grid.GetEntityCoord(id, includeDeathCoord: false)
-                })
+                .Select(id => new{Coord = taskInstance.EncounterModel.GridModel.GetEntityCoord(id, includeDeathCoord: false)})
                 .OrderBy(data => data.Coord.y)
                 .ThenBy(data => data.Coord.x)
                 .ToList();
@@ -54,27 +49,21 @@ namespace SV_UniqueCards
             foreach (var enemy in sortedEnemies)
             {
 
-                var targetCoords = grid.GetCoordsInDirection(enemy.Coord, Direction.S, distance: 1, inclusive: false).ToMono(); 
+                Coord southTile = new Coord(enemy.Coord.x, enemy.Coord.y - 1);
 
-                if (targetCoords.Count > 0)
-                {
-                    var southTile = targetCoords[0];
-
-                    if (grid.IsCoordEmpty(southTile))
+                if (taskInstance.EncounterModel.GridModel.IsCoordInGridRange(southTile) && taskInstance.EncounterModel.GridModel.IsCoordEmpty(southTile))
                     {
                         if (!taskInstance.IsPreviewModeView)
                         {
                             MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(enemy.Coord).transform.position));
                         }
 
-                        var pullDownTask = new PushTileEffectTask(
-                            Coord: enemy.Coord.BoxIl2CppObject(),
-                            Direction: new Il2CppSystem.Int32 { m_value = (int)Direction.S }.BoxIl2CppObject(),
-                            Distance: new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject()
-                        );
-
-                        yield return taskInstance.TaskEngine.ProcessTask(pullDownTask).Cast<Il2CppSystem.Object>();
-                    }
+                        yield return taskInstance.TaskEngine.ProcessTask(
+                            new PushTileEffectTask(
+                                Coord: enemy.Coord.BoxIl2CppObject(),
+                                Direction: new Il2CppSystem.Int32 { m_value = (int)Direction.S }.BoxIl2CppObject(),
+                                Distance: new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject()
+                        )).Cast<Il2CppSystem.Object>();
                 }
             }
         }
@@ -83,7 +72,7 @@ namespace SV_UniqueCards
         {
             GameObject Winds = new GameObject("WindsVFX");
             Winds.transform.position = spawnPosition + new UnityEngine.Vector3(0f, -0.5f, 0f);
-            Winds.transform.localScale = new UnityEngine.Vector3(5f, 5f, 5f);
+            Winds.transform.localScale = new UnityEngine.Vector3(6f, 6f, 6f);
             Winds.transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
 
             SpriteRenderer sr = Winds.AddComponent<SpriteRenderer>();
@@ -110,22 +99,21 @@ namespace SV_UniqueCards
         }
     }
 
-    public class NorthWindsPush : AModTask
+    public class NorthWinds_2 : AModTask
     {
-        public NorthWindsPush()
+        public NorthWinds_2()
         {
         }
 
-        public NorthWindsPush(TargetValue targetValue)
+        public NorthWinds_2(TargetValue targetValue)
         {
             SetArg(ArgKey.Coord, targetValue);
         }
 
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
-            var grid = taskInstance.EncounterModel.GridModel;
 
-            var enemies = grid.GetAllEnemies(ignoreSort: false).ToMono();
+            var enemies = taskInstance.EncounterModel.GridModel.GetAllEnemies(ignoreSort: false).ToMono();
 
             var sortedEnemies = enemies
                 .Select(id => new
@@ -139,18 +127,20 @@ namespace SV_UniqueCards
 
             foreach (var enemy in sortedEnemies)
             {
-                if (!taskInstance.IsPreviewModeView)
+                if (!taskInstance.EncounterModel.GridModel.IsCoordEmpty(enemy.Coord))
                 {
-                    MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(enemy.Coord).transform.position));
+                    if (!taskInstance.IsPreviewModeView)
+                    {
+                        MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(enemy.Coord).transform.position));
+                    }
+
+                    yield return taskInstance.TaskEngine.ProcessTask(
+                    new PushTileEffectTask(
+                        Coord: enemy.Coord.BoxIl2CppObject(),
+                        Direction: new Il2CppSystem.Int32 { m_value = (int)Direction.S }.BoxIl2CppObject(),
+                        Distance: new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject()
+                    )).Cast<Il2CppSystem.Object>();
                 }
-
-                var pushDownTask = new PushTileEffectTask(
-                    Coord: enemy.Coord.BoxIl2CppObject(),
-                    Direction: new Il2CppSystem.Int32 { m_value = (int)Direction.S }.BoxIl2CppObject(),
-                    Distance: new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject()
-                );
-
-                yield return taskInstance.TaskEngine.ProcessTask(pushDownTask).Cast<Il2CppSystem.Object>();
             }
         }
 
@@ -158,7 +148,7 @@ namespace SV_UniqueCards
         {
             GameObject Winds = new GameObject("WindsVFX");
             Winds.transform.position = spawnPosition + new UnityEngine.Vector3(0f, -0.5f, 0f);
-            Winds.transform.localScale = new UnityEngine.Vector3(5f, 5f, 5f);
+            Winds.transform.localScale = new UnityEngine.Vector3(6f, 6f, 6f);
             Winds.transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
 
             SpriteRenderer sr = Winds.AddComponent<SpriteRenderer>();
@@ -196,10 +186,10 @@ namespace SV_UniqueCards
             if (taskInstance.IsPreviewModeView)
                 yield break;
 
-            foreach (var cardID in taskInstance.EncounterModel.CardPlayModel.GetPile(Pile.Hand).ToMono().ToList())
+            foreach (CardID cardID in taskInstance.EncounterModel.CardPlayModel.GetPile(Pile.Hand).ToMono().ToList())
             {
                 CardModel card = taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID());
-                if (card.IsFrozen)
+                if (!card.IsFrozen)
                 {
                     yield return taskInstance.TaskEngine.ProcessTask(
                         new SetCardFrozenTask(cardID.BoxIl2CppObject(), true, true)
@@ -220,35 +210,31 @@ namespace SV_UniqueCards
         {
         }
 
-
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
             if (taskInstance.IsPreviewModeView)
                 yield break;
-
-            yield return taskInstance.TaskEngine.ProcessTask(new DrawTopDrawPileTask()).Cast<Il2CppSystem.Object>();
-            yield return taskInstance.TaskEngine.ProcessTask(new DrawTopDrawPileTask()).Cast<Il2CppSystem.Object>();
 
             System.Collections.Generic.List<Il2CppSystem.ValueTuple<Trigger, ACondition>> startConditions = new()
             {
             new (Trigger.PostTask, new IsTypeCondition<StartTurnTask>(new RunningTaskValue()))
             };
 
+            int heatToAdd = System.Math.Max(0, taskInstance.EncounterModel.Values[EncounterValue.MaxHeat] - taskInstance.EncounterModel.Values[EncounterValue.Heat]);
+
             System.Collections.Generic.List<ATask> startTasks = new()
             {
             new EncounterValueOperationTask(
                 EncounterValue.MaxHeat,
                 Il2CppStarVaders.Operation.Add,
-                new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject(),
+                new Il2CppSystem.Int32 { m_value = heatToAdd }.BoxIl2CppObject(),
                 false
             ),
-            new NorthWindsEnd()
+            new NorthWindsEnd(heatToAdd)
             };
 
-            TriggerEffect startTrigger = new TriggerEffect(startConditions.ToILCPP(), startTasks.ToILCPP(), true);
-
             yield return taskInstance.TaskEngine.ProcessTask(new AddTriggerEffectTask(
-                startTrigger
+                new TriggerEffect(startConditions.ToILCPP(), startTasks.ToILCPP(), true)
             )).Cast<Il2CppSystem.Object>();
 
         }
@@ -256,12 +242,23 @@ namespace SV_UniqueCards
 
     public class NorthWindsEnd : AModTask
     {
-        public NorthWindsEnd() { }
+        public NorthWindsEnd() 
+        { 
+        }
+
+        public NorthWindsEnd(int heatToAdd)
+        {
+            Il2CppSystem.Collections.Generic.List<int> List = new();
+            List.Add(heatToAdd);
+            SetArg(ArgKey.Value, List);
+        }
 
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
             if (taskInstance.IsPreviewModeView) 
                 yield break;
+
+            int heatToAdd = taskInstance.GetArg<Il2CppSystem.Collections.Generic.List<int>>(ArgKey.Value)[0];
 
             System.Collections.Generic.List<Il2CppSystem.ValueTuple<Trigger, ACondition>> endConditions = new()
             {
@@ -273,15 +270,13 @@ namespace SV_UniqueCards
                 new EncounterValueOperationTask(
                     EncounterValue.MaxHeat,
                     Il2CppStarVaders.Operation.Subtract,
-                    new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject(),
+                    new Il2CppSystem.Int32 { m_value = heatToAdd }.BoxIl2CppObject(),
                     false
                 )
             };
 
-            TriggerEffect endTrigger = new TriggerEffect(endConditions.ToILCPP(), endTasks.ToILCPP(), true);
-
             yield return taskInstance.TaskEngine.ProcessTask(new AddTriggerEffectTask(
-                endTrigger
+                new TriggerEffect(endConditions.ToILCPP(), endTasks.ToILCPP(), true)
             )).Cast<Il2CppSystem.Object>();
 
         }
@@ -300,7 +295,7 @@ namespace SV_UniqueCards
 
             for (int i = 0; i < 9; i++)
             {
-                string resourceName = $"SV_UniqueCards.gridfx.Snowy_{i:D2}.png";
+                string resourceName = $"SV_UniqueCards.gridfx.Gunner.Snowy_{i:D2}.png";
 
                 using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 {

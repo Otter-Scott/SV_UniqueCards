@@ -33,6 +33,84 @@
 	  <None Remove="gridfx\Fusion_07.png" />
 	  <None Remove="gridfx\Fusion_08.png" />
 	  <None Remove="gridfx\Fusion_09.png" />
+	  <None Remove="gridfx\Gunner\Backblast_00.png" />
+	  <None Remove="gridfx\Gunner\Backblast_01.png" />
+	  <None Remove="gridfx\Gunner\Backblast_02.png" />
+	  <None Remove="gridfx\Gunner\Backblast_03.png" />
+	  <None Remove="gridfx\Gunner\Backblast_04.png" />
+	  <None Remove="gridfx\Gunner\Backblast_05.png" />
+	  <None Remove="gridfx\Gunner\Backblast_06.png" />
+	  <None Remove="gridfx\Gunner\Backblast_07.png" />
+	  <None Remove="gridfx\Gunner\Backblast_08.png" />
+	  <None Remove="gridfx\Gunner\Fusion_00.png" />
+	  <None Remove="gridfx\Gunner\Fusion_01.png" />
+	  <None Remove="gridfx\Gunner\Fusion_02.png" />
+	  <None Remove="gridfx\Gunner\Fusion_03.png" />
+	  <None Remove="gridfx\Gunner\Fusion_04.png" />
+	  <None Remove="gridfx\Gunner\Fusion_05.png" />
+	  <None Remove="gridfx\Gunner\Fusion_06.png" />
+	  <None Remove="gridfx\Gunner\Fusion_07.png" />
+	  <None Remove="gridfx\Gunner\Fusion_08.png" />
+	  <None Remove="gridfx\Gunner\Fusion_09.png" />
+	  <None Remove="gridfx\Gunner\OSS1_00.png" />
+	  <None Remove="gridfx\Gunner\OSS1_01.png" />
+	  <None Remove="gridfx\Gunner\OSS1_02.png" />
+	  <None Remove="gridfx\Gunner\OSS1_03.png" />
+	  <None Remove="gridfx\Gunner\OSS1_04.png" />
+	  <None Remove="gridfx\Gunner\OSS1_05.png" />
+	  <None Remove="gridfx\Gunner\OSS1_06.png" />
+	  <None Remove="gridfx\Gunner\OSS1_07.png" />
+	  <None Remove="gridfx\Gunner\OSS1_08.png" />
+	  <None Remove="gridfx\Gunner\OSS1_09.png" />
+	  <None Remove="gridfx\Gunner\OSS1_10.png" />
+	  <None Remove="gridfx\Gunner\OSS1_11.png" />
+	  <None Remove="gridfx\Gunner\OSS1_12.png" />
+	  <None Remove="gridfx\Gunner\OSS1_13.png" />
+	  <None Remove="gridfx\Gunner\OSS1_14.png" />
+	  <None Remove="gridfx\Gunner\OSS1_15.png" />
+	  <None Remove="gridfx\Gunner\OSS1_16.png" />
+	  <None Remove="gridfx\Gunner\OSS1_17.png" />
+	  <None Remove="gridfx\Gunner\OSS1_18.png" />
+	  <None Remove="gridfx\Gunner\OSS2_00.png" />
+	  <None Remove="gridfx\Gunner\OSS2_01.png" />
+	  <None Remove="gridfx\Gunner\OSS2_02.png" />
+	  <None Remove="gridfx\Gunner\OSS2_03.png" />
+	  <None Remove="gridfx\Gunner\OSS2_04.png" />
+	  <None Remove="gridfx\Gunner\OSS2_05.png" />
+	  <None Remove="gridfx\Gunner\OSS2_06.png" />
+	  <None Remove="gridfx\Gunner\OSS2_07.png" />
+	  <None Remove="gridfx\Gunner\OSS2_08.png" />
+	  <None Remove="gridfx\Gunner\OSS2_09.png" />
+	  <None Remove="gridfx\Gunner\OSS2_10.png" />
+	  <None Remove="gridfx\Gunner\OSS2_11.png" />
+	  <None Remove="gridfx\Gunner\OSS2_12.png" />
+	  <None Remove="gridfx\Gunner\OSS2_13.png" />
+	  <None Remove="gridfx\Gunner\OSS2_14.png" />
+	  <None Remove="gridfx\Gunner\OSS2_15.png" />
+	  <None Remove="gridfx\Gunner\OSS2_16.png" />
+	  <None Remove="gridfx\Gunner\OSS2_17.png" />
+	  <None Remove="gridfx\Gunner\OSS2_18.png" />
+	  <None Remove="gridfx\Gunner\OSS3_00.png" />
+	  <None Remove="gridfx\Gunner\OSS3_01.png" />
+	  <None Remove="gridfx\Gunner\OSS3_02.png" />
+	  <None Remove="gridfx\Gunner\OSS3_03.png" />
+	  <None Remove="gridfx\Gunner\OSS3_04.png" />
+	  <None Remove="gridfx\Gunner\OSS3_05.png" />
+	  <None Remove="gridfx\Gunner\OSS3_06.png" />
+	  <None Remove="gridfx\Gunner\OSS3_07.png" />
+	  <None Remove="gridfx\Gunner\OSS3_08.png" />
+	  <None Remove="gridfx\Gunner\OSS3_09.png" />
+	  <None Remove="gridfx\Gunner\OSS3_10.png" />
+	  <None Remove="gridfx\Gunner\OSS3_11.png" />
+	  <None Remove="gridfx\Gunner\Snowy_00.png" />
+	  <None Remove="gridfx\Gunner\Snowy_01.png" />
+	  <None Remove="gridfx\Gunner\Snowy_02.png" />
+	  <None Remove="gridfx\Gunner\Snowy_03.png" />
+	  <None Remove="gridfx\Gunner\Snowy_04.png" />
+	  <None Remove="gridfx\Gunner\Snowy_05.png" />
+	  <None Remove="gridfx\Gunner\Snowy_06.png" />
+	  <None Remove="gridfx\Gunner\Snowy_07.png" />
+	  <None Remove="gridfx\Gunner\Snowy_08.png" />
 	  <None Remove="gridfx\Snowy_00.png" />
 	  <None Remove="gridfx\Snowy_01.png" />
 	  <None Remove="gridfx\Snowy_02.png" />
@@ -43,12 +121,90 @@
 	  <None Remove="gridfx\Snowy_07.png" />
 	  <None Remove="gridfx\Snowy_08.png" />
 	  <None Remove="UniqueCards\Gunner\Ablation.png" />
+	  <None Remove="UniqueCards\Gunner\Bullet.png" />
 	  <None Remove="UniqueCards\Gunner\CatalysedComponent.png" />
 	  <None Remove="UniqueCards\Gunner\Fusion.png" />
 	  <None Remove="UniqueCards\Gunner\HailComponent.png" />
 	  <None Remove="UniqueCards\Gunner\Heat.png" />
 	  <None Remove="UniqueCards\Gunner\NorthWinds.png" />
+	  <None Remove="UniqueCards\Gunner\OSS1Component.png" />
+	  <None Remove="UniqueCards\Gunner\OSS2Component.png" />
+	  <None Remove="UniqueCards\Gunner\OSS3Component.png" />
+	  <None Remove="UniqueCards\Gunner\OSSComponent.png" />
 	  <None Remove="UniqueCards\Gunner\TriggerComponent.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_00.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_01.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_02.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_03.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_04.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_05.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_06.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_07.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Backblast_08.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_00.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_01.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_02.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_03.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_04.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_05.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_06.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_07.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_08.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Fusion_09.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_00.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_01.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_02.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_03.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_04.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_05.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_06.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_07.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_08.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_09.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_10.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_11.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_12.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_13.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_14.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_15.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_16.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_17.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS1_18.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_00.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_01.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_02.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_03.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_04.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_05.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_06.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_07.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_08.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_09.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_10.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_11.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_12.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS2_13.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_00.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_01.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_02.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_03.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_04.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_05.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_06.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_07.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_08.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_09.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_10.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\OSS3_11.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_00.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_01.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_02.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_03.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_04.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_05.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_06.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_07.png" />
+	  <EmbeddedResource Include="gridfx\Gunner\Snowy_08.png" />
 
 		<EmbeddedResource Include="UniqueCards\Gunner\Ablation.png">
 			<LogicalName>SV_UniqueCards.Ablation.png</LogicalName>
@@ -71,6 +227,21 @@
 		<EmbeddedResource Include="UniqueCards\Gunner\TriggerComponent.png">
 			<LogicalName>SV_UniqueCards.TriggerComponent.png</LogicalName>
 		</EmbeddedResource>
+		<EmbeddedResource Include="UniqueCards\Gunner\OSSComponent.png">
+			<LogicalName>SV_UniqueCards.OSSComponent.png</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="UniqueCards\Gunner\OSS1Component.png">
+			<LogicalName>SV_UniqueCards.OSS1Component.png</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="UniqueCards\Gunner\OSS2Component.png">
+			<LogicalName>SV_UniqueCards.OSS2Component.png</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="UniqueCards\Gunner\OSS3Component.png">
+			<LogicalName>SV_UniqueCards.OSS3Component.png</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="UniqueCards\Gunner\Bullet.png">
+			<LogicalName>SV_UniqueCards.Bullet.png</LogicalName>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -79,6 +250,9 @@
 		</Reference>
 		<Reference Include="Assembly-CSharp">
 			<HintPath>$(GamePath)/MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="AudioImportLib">
+		  <HintPath>D:\Games\StarVaders\Mods\AudioImportLib.dll</HintPath>
 		</Reference>
 		<Reference Include="Il2CppAllIn1SpriteShaderAssembly">
 			<HintPath>$(GamePath)/MelonLoader\Il2CppAssemblies\Il2CppAllIn1SpriteShaderAssembly.dll</HintPath>
@@ -463,34 +637,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="gridfx\Backblast_00.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_01.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_02.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_03.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_04.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_05.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_06.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_07.png" />
-	  <EmbeddedResource Include="gridfx\Backblast_08.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_00.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_01.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_02.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_03.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_04.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_05.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_06.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_07.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_08.png" />
-	  <EmbeddedResource Include="gridfx\Fusion_09.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_00.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_01.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_02.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_03.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_04.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_05.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_06.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_07.png" />
-	  <EmbeddedResource Include="gridfx\Snowy_08.png" />
 	  <EmbeddedResource Include="UniqueCards\Gunner\Ablation.png" />
 	  <EmbeddedResource Include="UniqueCards\Gunner\CatalysedComponent.png" />
 	  <EmbeddedResource Include="UniqueCards\Gunner\Fusion.png" />

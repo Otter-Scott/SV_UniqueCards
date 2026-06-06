@@ -10,6 +10,7 @@ using SVModHelper;
 using SVModHelper.ModContent;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -26,7 +27,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "Ablation";
 
         public override string Description =>
-            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.\nIf unplayed, purge this card and ALL <nobr><b><i><color=#fd9756>Burnt</color></i></b></nobr> or <nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards.";
+            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.\nIf unplayed, purge this card and ALL <nobr><b><i><color=#fd9756>Burnt</color></i></b></nobr> or <nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards in your hand.";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
@@ -121,7 +122,7 @@ namespace SV_UniqueCards
         {
             Il2CppCollections.List<ATask> taskList = new();
             
-            taskList.Add(new AblationTask());
+            taskList.Add(new Ablation_1());
 
             return taskList;
         }
@@ -132,17 +133,40 @@ namespace SV_UniqueCards
     {
         public override string DisplayName => "Catalysed";
 
-        public override string Description => "+1 <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> this turn.";
+        public override string Description => "While this card is in your hand, burning a card purges a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> instead.";
 
         public override ClassName Class => ClassName.Gunner;
 
-        public override void ModifyCardModel(CardModel cardModel)
+        public override Il2CppSystem.Collections.Generic.List<ATask> GetOnCreateTaskList(OnCreateIDValue cardID)
         {
-            foreach (SelectionTaskGroup taskGroup in cardModel.SelectionTaskGroups)
+            return base.GetOnCreateTaskList(cardID);
+        }
+        public override Il2CppCollections.List<TriggerEffect> GetTriggerEffects(OnCreateIDValue cardID)
+        {
+            List<Il2CppSystem.ValueTuple<Trigger, ACondition>> triggerConditions = new()
             {
-                taskGroup.PostSelectionTaskList.Clear();
-                taskGroup.PostSelectionTaskList.Add(new AblationCompTask());
-            }
+                new (Trigger.PreSkipTask, new AndCondition(
+                    new IsTypeCondition<SetCardBurntTask>(new RunningTaskValue()),
+                    new CardInHandButNotBeingPlayedCondition(cardID),
+                    new OrCondition(
+                        new CardNameInPileCondition(CardName.Meltdown , Pile.Hand),
+                        new CardNameInPileCondition(CardName.Meltdown , Pile.Discard),
+                        new CardNameInPileCondition(CardName.Meltdown , Pile.Draw)),
+                    new NotCondition(new CardNameInPileCondition(CardName.Fuel , Pile.Hand))
+                ))
+            };
+
+            List<ATask> triggerTasks = new()
+            {
+                new AblationMeldownTask(),
+                new SkipNextTask(),
+            };
+
+            return new List<TriggerEffect>()
+            {
+                new TriggerEffect(triggerConditions.ToILCPP(), triggerTasks.ToILCPP())
+
+            }.ToILCPP();
         }
     }
 }

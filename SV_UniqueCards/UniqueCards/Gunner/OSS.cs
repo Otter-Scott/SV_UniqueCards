@@ -26,7 +26,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "One Small Step";
 
         public override string Description =>
-            "";
+            "Destroy this card and two random non-<nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards.\n Create one of three random 0 cost cards in your hand. ( <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Sherman's E4-5</i></font></b></smallcaps></color></size></voffset>, <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>A-10 Warthogs</i></font></b></smallcaps></color></size></voffset>, or <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>AN/SEQ-3</i></font></b></smallcaps></color></size></voffset> )";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
@@ -46,10 +46,7 @@ namespace SV_UniqueCards
 
         public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
         {
-            MoreInfoWordName.Heat,
-            MoreInfoWordName.Burnt,
-            MoreInfoWordName.Junk
-,
+            ModContentManager.GetModMoreInfoName("Destroy")
         }.ToILCPP();
 
         public override Il2CppCollections.HashSet<CardName> MoreInfoCards => new System.Collections.Generic.HashSet<CardName>() 
@@ -70,7 +67,7 @@ namespace SV_UniqueCards
 
         public override Il2CppCollections.HashSet<ComponentName> AllowedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
         {
-            ModContentManager.GetModComponentName<CatalysedComponent>()
+            ModContentManager.GetModComponentName<OSSComponent>()
 
         }.ToILCPP();
 
@@ -84,7 +81,10 @@ namespace SV_UniqueCards
             ComponentName.Boosted
         }.ToILCPP();
 
-        public override Il2CppCollections.HashSet<CardTrait> HiddenTraits => new System.Collections.Generic.HashSet<CardTrait>().ToILCPP();
+        public override Il2CppCollections.HashSet<CardTrait> HiddenTraits => new System.Collections.Generic.HashSet<CardTrait>()
+        {
+            CardTrait.Random
+        }.ToILCPP();
         #endregion
 
         #region Tasks
@@ -107,253 +107,36 @@ namespace SV_UniqueCards
         {
             Il2CppCollections.List<ATask> taskList = new();
 
-            taskList.Add(new OSSPurge());
+            taskList.Add(new OSS_1(cardID));
 
             return taskList;
         }
         #endregion
     }
 
-    public class OSS1 : AModCard
+    public class OSSComponent : AModComponent
     {
-        #region Basic properties
-        public override string DisplayName => "Sherman's E4-5";
+        public override string DisplayName => "One Big Leap";
 
-        public override string Description =>
-            "";
-        public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
-        {
-            CardTrait.Attack
-        }.ToILCPP();
+        public override string Description => "Choose which cards to destroy. <nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards can also be destroyed";
 
         public override ClassName Class => ClassName.Gunner;
 
-        public override PilotName PilotUnique => PilotName.Zeke;
-
-        public override Rarity Rarity => Rarity.Created;
-
-        public override bool IsToken => true;
-        #endregion
-
-        #region Components and traits
-        public override int ClassBaseCost => 0;
-
-        public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
+        public override void ModifyCardModel(CardModel cardModel)
         {
-            MoreInfoWordName.Heat,
-            MoreInfoWordName.Burnt,
-            MoreInfoWordName.Junk
-,
-        }.ToILCPP();
 
-        public override Il2CppCollections.HashSet<CardName> MoreInfoCards => new System.Collections.Generic.HashSet<CardName>()
-        {
-        }.ToILCPP();
+            foreach (SelectionTaskGroup taskGroup in cardModel.SelectionTaskGroups)
+            {
+                taskGroup.PostSelectionTaskList.Clear();
+                taskGroup.PostSelectionTaskList.Add(new OSS_2());
+            }
 
-        public override Il2CppCollections.HashSet<ComponentTrait> AllowedComponentTraits => new System.Collections.Generic.HashSet<ComponentTrait>()
-        {
-        }.ToILCPP();
-
-
-        public override Il2CppCollections.HashSet<ComponentName> AllowedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
-        {
-            ModContentManager.GetModComponentName<CatalysedComponent>()
-
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<ComponentName> BlockedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
-        {
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<CardTrait> HiddenTraits => new System.Collections.Generic.HashSet<CardTrait>().ToILCPP();
-        #endregion
-
-        #region Tasks
-
-
-
-        public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
-        {
-            Il2CppCollections.List<Selection> selections = new();
-
-            selections.Add(new Selection(
-                new DefaultSelectionCondition(),
-                selectionDescriptor: SelectionDescriptor.None
+            cardModel.PlayCondition = new AndCondition(
+                cardModel.PlayCondition,
+                new IntGreaterThanCondition(
+                    new NumberOfCardsInHandNotBeingPlayedValue(),
+                    new Il2CppSystem.Int32 { m_value = 2 }.BoxIl2CppObject()
             ));
-
-            return selections;
         }
-
-        public override Il2CppCollections.List<ATask> GetPostSelectionTaskList(OnCreateIDValue cardID)
-        {
-            Il2CppCollections.List<ATask> taskList = new();
-
-            taskList.Add(new FlamethrowerTask());
-
-            return taskList;
-        }
-        #endregion
-    }
-
-    public class OSS2 : AModCard
-    {
-        #region Basic properties
-        public override string DisplayName => "RQ-180";
-
-        public override string Description =>
-            "";
-        public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
-        {
-            CardTrait.Attack
-        }.ToILCPP();
-
-        public override ClassName Class => ClassName.Gunner;
-
-        public override PilotName PilotUnique => PilotName.Zeke;
-
-        public override Rarity Rarity => Rarity.Created;
-
-        public override bool IsToken => true;
-        #endregion
-
-        #region Components and traits
-        public override int ClassBaseCost => 0;
-
-        public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
-        {
-            MoreInfoWordName.Heat,
-            MoreInfoWordName.Burnt,
-            MoreInfoWordName.Junk
-,
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<CardName> MoreInfoCards => new System.Collections.Generic.HashSet<CardName>()
-        {
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<ComponentTrait> AllowedComponentTraits => new System.Collections.Generic.HashSet<ComponentTrait>()
-        {
-        }.ToILCPP();
-
-
-        public override Il2CppCollections.HashSet<ComponentName> AllowedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
-        {
-            ModContentManager.GetModComponentName<CatalysedComponent>()
-
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<ComponentName> BlockedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
-        {
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<CardTrait> HiddenTraits => new System.Collections.Generic.HashSet<CardTrait>().ToILCPP();
-        #endregion
-
-        #region Tasks
-
-
-
-        public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
-        {
-            Il2CppCollections.List<Selection> selections = new();
-
-            selections.Add(new Selection(
-                new DefaultSelectionCondition(),
-                selectionDescriptor: SelectionDescriptor.None
-            ));
-
-            return selections;
-        }
-
-        public override Il2CppCollections.List<ATask> GetPostSelectionTaskList(OnCreateIDValue cardID)
-        {
-            Il2CppCollections.List<ATask> taskList = new();
-
-            taskList.Add(new OSS2Task());
-
-            return taskList;
-        }
-        #endregion
-    }
-
-    public class OSS3 : AModCard
-    {
-        #region Basic properties
-        public override string DisplayName => "AN/SEQ-3";
-
-        public override string Description =>
-            "";
-        public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
-        {
-            CardTrait.Attack
-        }.ToILCPP();
-
-        public override ClassName Class => ClassName.Gunner;
-
-        public override PilotName PilotUnique => PilotName.Zeke;
-
-        public override Rarity Rarity => Rarity.Created;
-
-        public override bool IsToken => true;
-        #endregion
-
-        #region Components and traits
-        public override int ClassBaseCost => 0;
-
-        public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
-        {
-            MoreInfoWordName.Heat,
-            MoreInfoWordName.Burnt,
-            MoreInfoWordName.Junk
-,
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<CardName> MoreInfoCards => new System.Collections.Generic.HashSet<CardName>()
-        {
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<ComponentTrait> AllowedComponentTraits => new System.Collections.Generic.HashSet<ComponentTrait>()
-        {
-        }.ToILCPP();
-
-
-        public override Il2CppCollections.HashSet<ComponentName> AllowedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
-        {
-            ModContentManager.GetModComponentName<CatalysedComponent>()
-
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<ComponentName> BlockedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
-        {
-        }.ToILCPP();
-
-        public override Il2CppCollections.HashSet<CardTrait> HiddenTraits => new System.Collections.Generic.HashSet<CardTrait>().ToILCPP();
-        #endregion
-
-        #region Tasks
-
-
-
-        public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
-        {
-            Il2CppCollections.List<Selection> selections = new();
-
-            selections.Add(new Selection(
-                new DefaultSelectionCondition(),
-                selectionDescriptor: SelectionDescriptor.None
-            ));
-
-            return selections;
-        }
-
-        public override Il2CppCollections.List<ATask> GetPostSelectionTaskList(OnCreateIDValue cardID)
-        {
-            Il2CppCollections.List<ATask> taskList = new();
-
-            taskList.Add(new OSSPurge());
-
-            return taskList;
-        }
-        #endregion
     }
 }

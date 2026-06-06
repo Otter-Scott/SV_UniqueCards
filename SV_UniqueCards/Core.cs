@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using static UnityEngine.Rendering.ReloadAttribute;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
 
@@ -24,31 +25,38 @@ namespace SV_UniqueCards
     public class Core : SVMod
     {
 
+        protected override void EarlyRegisterMod()
+        {
+            base.EarlyRegisterMod();
+            RegisterMoreInfoPanel("Destroy", "<b><color=#FFBF00>Destroy</color></b></nobr>: Temporarily remove card for the remainder of the battle. On purge effects do not trigger when a card is destroyed.");
+        }
         protected override void LateRegisterMod()
         {
 
-            /*PlayerCardData ablationCatalysed = new(ModContentManager.GetModCardName<Fusion>())
+            PlayerCardData Card1 = new(ModContentManager.GetModCardName<OSS>())
+            {
+            };
+            PlayerCardData Card2 = new(ModContentManager.GetModCardName<Fusion>())
             {
                 Component = ModContentManager.GetModComponentName<TriggerComponent>()
             };
-
-            var RoxyDeckManifest = new List<PlayerCardData>
+            PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS>())
             {
-                new PlayerCardData(CardName.ArtilleryStrike),
-                new PlayerCardData(CardName.ArtilleryStrike),
-                new PlayerCardData(CardName.ArtilleryStrike),
-                ablationCatalysed,
-                ablationCatalysed,
-                ablationCatalysed,
-                new (ModContentManager.GetModCardName<Ablation>()),
-                new (ModContentManager.GetModCardName<Ablation>()),
-                new (ModContentManager.GetModCardName<NorthWinds>()),
+                Component = ModContentManager.GetModComponentName<OSSComponent>()
             };
+
+            var RoxyDeck = new List<PlayerCardData>
+            {
+                new PlayerCardData(CardName.Exhaust),
+                Card3,
+                Card1
+            };
+
             RegisterContentMod(new PilotModification(PilotName.Roxy)
             {
-                targetPilot = PilotName.Noel,
-                startingCards = RoxyDeckManifest.ToILCPP()
-            });*/
+                targetPilot = PilotName.Roxy,
+                startingCards = RoxyDeck.ToILCPP()
+            });
 
         }
 

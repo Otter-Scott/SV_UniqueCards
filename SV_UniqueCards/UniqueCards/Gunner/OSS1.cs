@@ -20,64 +20,59 @@ using Il2CppCollections = Il2CppSystem.Collections.Generic;
 
 namespace SV_UniqueCards
 {
-    public class Fusion : AModCard
+
+    public class OSS1 : AModCard
     {
         #region Basic properties
-        public override string DisplayName => "Fusion";
+        public override string DisplayName => "Sherman's E4-5";
 
         public override string Description =>
-            "Discard a card and add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Fusion</i></font></b></smallcaps></color></size></voffset> to your discard. Every Fusion discarded triggers <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Quark</i></font></b></smallcaps></color></size></voffset>'s effect and adds another Fusion.\nStrike all tiles adjacent to a tile.";
+            "Strike tiles in a large cone above you.\nDismantles itself when played";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
-            CardTrait.Attack,
-            CardTrait.Tactic
+            CardTrait.Attack
         }.ToILCPP();
 
         public override ClassName Class => ClassName.Gunner;
 
-        public override PilotName PilotUnique => PilotName.Min;
+        public override PilotName PilotUnique => PilotName.Zeke;
 
-        public override Rarity Rarity => Rarity.Legendary;
+        public override Rarity Rarity => Rarity.Created;
 
-        public override int ClassBaseCost => 1;
-
-        public override ACondition PlayCondition => new AndCondition(
-            base.PlayCondition,
-            new IntGreaterThanCondition(
-                new NumberOfCardsInHandNotBeingPlayedValue(),
-                new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject()
-        ));
-
+        public override bool IsToken => true;
         #endregion
 
         #region Components and traits
+        public override int ClassBaseCost => 0;
 
         public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
         {
-            MoreInfoWordName.Burnt
-,
+
+            MoreInfoWordName.FlamethrowerImage,
+            MoreInfoWordName.Deconstruct,
+            MoreInfoWordName.Purge,
         }.ToILCPP();
 
-        public override Il2CppCollections.HashSet<CardName> MoreInfoCards => new System.Collections.Generic.HashSet<CardName>() 
-        { 
-            CardName.Quark
+        public override Il2CppCollections.HashSet<CardName> MoreInfoCards => new System.Collections.Generic.HashSet<CardName>()
+        {
+            CardName.Sparks,
+            CardName.Propel,
+            CardName.Vapor
         }.ToILCPP();
 
         public override Il2CppCollections.HashSet<ComponentTrait> AllowedComponentTraits => new System.Collections.Generic.HashSet<ComponentTrait>()
         {
-            ComponentTrait.Basic,
         }.ToILCPP();
 
 
         public override Il2CppCollections.HashSet<ComponentName> AllowedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
         {
-            ModContentManager.GetModComponentName<TriggerComponent>()
+            ModContentManager.GetModComponentName<OSS1Component>()
 
         }.ToILCPP();
 
         public override Il2CppCollections.HashSet<ComponentName> BlockedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
         {
-            ComponentName.Fiery
         }.ToILCPP();
 
         public override Il2CppCollections.HashSet<CardTrait> HiddenTraits => new System.Collections.Generic.HashSet<CardTrait>().ToILCPP();
@@ -85,13 +80,7 @@ namespace SV_UniqueCards
 
         #region Tasks
 
-        public override Il2CppCollections.List<TriggerEffect> GetTriggerEffects(OnCreateIDValue cardID)
-        {
-            return new List<TriggerEffect>()
-            {
 
-            }.ToILCPP();
-        }
 
         public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
         {
@@ -105,24 +94,25 @@ namespace SV_UniqueCards
             return selections;
         }
 
-        
-
         public override Il2CppCollections.List<ATask> GetPostSelectionTaskList(OnCreateIDValue cardID)
         {
             Il2CppCollections.List<ATask> taskList = new();
 
-            taskList.Add(new Fusion_1());
+            taskList.Add(new OSS1_1VFX());
+            taskList.Add(new OSS1_1());
+            taskList.Add(new DeconstructTask(cardID));
+
 
             return taskList;
         }
         #endregion
     }
 
-    public class TriggerComponent : AModComponent
+    public class OSS1Component : AModComponent
     {
-        public override string DisplayName => "Trigger";
+        public override string DisplayName => "Innovation";
 
-        public override string Description => "Discard an additional card. Stays in your hand when played.";
+        public override string Description => "Strike twice. Make 2 random <nobr><b><i><color=#51affb>Move</color></i></b></nobr> and 2 random <nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards in your hand free this turn.";
 
         public override ClassName Class => ClassName.Gunner;
 
@@ -131,17 +121,24 @@ namespace SV_UniqueCards
             foreach (SelectionTaskGroup taskGroup in cardModel.SelectionTaskGroups)
             {
                 taskGroup.PostSelectionTaskList.Clear();
-                taskGroup.PostSelectionTaskList.Add(new Fusion_2());
             }
 
-            cardModel.Destination = Pile.Hand;
+            cardModel.HiddenTraits = new System.Collections.Generic.HashSet<CardTrait>(){CardTrait.Random}.ToILCPP();
+        }
 
-            cardModel.PlayCondition = new AndCondition(
-                cardModel.PlayCondition,
-                new IntGreaterThanCondition(
-                    new NumberOfCardsInHandNotBeingPlayedValue(),
-                    new Il2CppSystem.Int32 { m_value = 2 }.BoxIl2CppObject()
-            ));
+        public override Il2CppCollections.List<ATask> GetPostSelectionTaskList(OnCreateIDValue cardID)
+        {
+            Il2CppCollections.List<ATask> taskList = new();
+
+            taskList.Add(new OSS1_1VFX());
+            taskList.Add(new OSS1_2VFX()); 
+            taskList.Add(new OSS1_2());
+            taskList.Add(new OSS1_2_Misc());
+            taskList.Add(new DeconstructTask(cardID));
+
+
+            return taskList;
         }
     }
+
 }

@@ -15,14 +15,16 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Playables;
 using static UnityEngine.Rendering.ReloadAttribute;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
+using System.Linq;
 
 namespace SV_UniqueCards
 {
-    public class AblationTask : AModTask
+    public class Ablation_1 : AModTask
     {
-        public AblationTask()
+        public Ablation_1()
         {
         }
 
@@ -101,6 +103,32 @@ namespace SV_UniqueCards
 
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
+            if (taskInstance.IsPreviewModeView)
+                yield break;
+
+            foreach (CardID cardID in taskInstance.EncounterModel.CardPlayModel.GetPile(Pile.Hand).ToMono().ToList())
+            {
+                CardModel card = taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID());
+
+                if (card.Traits.Contains(CardTrait.Junk) || card.IsBurnt)
+                {
+                    yield return taskInstance.TaskEngine.ProcessTask(
+                        new PurgeCardTask(cardID.BoxIl2CppObject())
+                    ).Cast<Il2CppSystem.Object>();
+                }
+            }
+
+        }
+    }
+
+    public class AblationMeldownTask : AModTask
+    {
+        public AblationMeldownTask()
+        {
+        }
+
+        public override System.Collections.IEnumerator Execute(ATask taskInstance)
+        {
 
             Il2CppSystem.Object primaryCardID = taskInstance.GetArg<Il2CppSystem.Object>(ArgKey.CardID);
 
@@ -113,118 +141,18 @@ namespace SV_UniqueCards
 
             Pile[] pilesToScan = { Pile.Hand, Pile.Draw, Pile.Discard };
 
-            foreach (Pile currentPile in pilesToScan)
-            {
-                foreach (var cardID in taskInstance.EncounterModel.CardPlayModel.GetPile(currentPile).ToMono().ToList())
-                {
-                    CardModel card = taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID());
-
-                    if (card.Traits.Contains(CardTrait.Junk) || card.IsBurnt)
-                    {
-                        yield return taskInstance.TaskEngine.ProcessTask(
-                            new PurgeCardTask(cardID.BoxIl2CppObject())
-                        ).Cast<Il2CppSystem.Object>();
-                    }
-                }
-            }
-        }
-    }
-
-    public class AblationCompTask : AModTask
-    {
-        public AblationCompTask()
-        {
-        }
-
-        public override System.Collections.IEnumerator Execute(ATask taskInstance)
-        {
-            if (taskInstance.IsPreviewModeView)
-                yield break;
-
-            int heatInSink = taskInstance.EncounterModel.Values[EncounterValue.Heat];
-
-            MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(taskInstance.EncounterModel.GridModel.GetPlayerCoord()).transform.position));
+            System.Collections.Generic.List<CardID> meltdownCards = pilesToScan
+                .SelectMany(pile => taskInstance.EncounterModel.CardPlayModel.GetPile(pile).ToMono())
+                .Where(cardID => cardID.CardName == CardName.Meltdown)
+                .OrderByDescending(cardID => {return taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID()).IsBurnt;})
+                .ToList();
 
             yield return taskInstance.TaskEngine.ProcessTask(
-                new EncounterValueOperationTask(
-                    EncounterValue.Heat,
-                    Il2CppStarVaders.Operation.Replace,
-                    new Il2CppSystem.Int32 { m_value = 0 }.BoxIl2CppObject()
-                )
+                new PurgeCardTask(meltdownCards[0].BoxIl2CppObject())
             ).Cast<Il2CppSystem.Object>();
 
-            for (int i = 0; i < heatInSink; i++)
-            {
-                yield return taskInstance.TaskEngine.ProcessTask(
-                    new CreateCardTask(
-                        CardName: new Il2CppSystem.Int32 { m_value = (int)CardName.Meltdown }.BoxIl2CppObject(),
-                        Pile: Pile.Hand,
-                        isFastMode: false,
-                        rarity: new()
-                    )
-                ).Cast<Il2CppSystem.Object>();
-            }
-
-
-            yield return taskInstance.TaskEngine.ProcessTask(new EncounterValueOperationTask(
-                EncounterValue.MaxHeat, Il2CppStarVaders.Operation.Add, new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject(), false
-            )).Cast<Il2CppSystem.Object>();
-
-
-            System.Collections.Generic.List<Il2CppSystem.ValueTuple<Trigger, ACondition>> endConditions = new()
-            {
-                new(Trigger.PreTask, new IsTypeCondition<EndTurnTask>(new RunningTaskValue()))
-            };
-
-            System.Collections.Generic.List<ATask> endTasks = new()
-            {
-                new EncounterValueOperationTask(
-                    EncounterValue.MaxHeat,
-                    Il2CppStarVaders.Operation.Subtract,
-                    new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject(),
-                    false
-                )
-            };
-
-            TriggerEffect endTrigger = new TriggerEffect(endConditions.ToILCPP(), endTasks.ToILCPP(), true);
-
-            yield return taskInstance.TaskEngine.ProcessTask(new AddTriggerEffectTask(
-                endTrigger
-            )).Cast<Il2CppSystem.Object>();
-        }
-
-        private static System.Collections.IEnumerator PlayStandaloneVFX(UnityEngine.Vector3 spawnPosition)
-        {
-            GameObject Fire = new GameObject("FireVFX");
-            Fire.transform.position = spawnPosition + new UnityEngine.Vector3(0f, -4f, 1f);
-            Fire.transform.localScale = new UnityEngine.Vector3(4f, 4f, 4f);
-            Fire.transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
-
-            SpriteRenderer sr = Fire.AddComponent<SpriteRenderer>();
-            sr.sortingLayerName = "Entities";
-            sr.sortingOrder = 999;
-
-            float secondsPerFrame = 0.05f;
-            Sprite[] frames = AblationVFXManager.GetOrLoadSprites();
-
-            for (int i = 0; i < frames.Length; i++)
-            {
-                if (frames[i] != null && sr != null)
-                {
-                    sr.sprite = frames[i];
-                }
-
-                yield return new UnityEngine.WaitForSeconds(secondsPerFrame);
-            }
-
-            if (Fire != null)
-            {
-                UnityEngine.Object.Destroy(Fire);
-            }
         }
     }
-
-
 
     public static class AblationVFXManager
     {
@@ -239,7 +167,7 @@ namespace SV_UniqueCards
 
             for (int i = 0; i < 9; i++)
             {
-                string resourceName = $"SV_UniqueCards.gridfx.Backblast_{i:D2}.png";
+                string resourceName = $"SV_UniqueCards.gridfx.Gunner.Backblast_{i:D2}.png";
 
                 using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 {

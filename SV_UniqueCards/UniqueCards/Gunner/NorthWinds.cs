@@ -26,7 +26,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "North Winds";
 
         public override string Description =>
-            "Pull all invaders down 1 tile.\nDraw 2 cards, make all cards in your hand <nobr><b><i><color=#916fd7>Frozen</color></i></b></nobr>, and immediately end your turn.\nYou get +1 <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> next turn.";
+            "Pull all invaders down 1 tile. Make all cards in your hand <nobr><b><i><color=#916fd7>Frozen</color></i></b></nobr>, and immediately end your turn.\nUnused <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink is added to your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink next turn.";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
@@ -94,7 +94,7 @@ namespace SV_UniqueCards
         {
             Il2CppCollections.List<ATask> taskList = new();
 
-            taskList.Add(new NorthWindsPull());
+            taskList.Add(new NorthWinds_1());
             taskList.Add(new NorthWindsMisc());
             taskList.Add(new NorthWindsFreeze());
 
@@ -120,21 +120,15 @@ namespace SV_UniqueCards
 
         public override void ModifyCardModel(CardModel cardModel)
         {
-
-            if (cardModel.MoreInfoWordNames != null)
-            {
-                cardModel.MoreInfoWordNames.Clear();
-                cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Push);
-                cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Frozen);
-                cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Heat);
-            }
-
-
+            cardModel.MoreInfoWordNames.Clear();
+            cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Push);
+            cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Frozen);
+            cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Heat);
 
             foreach (SelectionTaskGroup taskGroup in cardModel.SelectionTaskGroups)
             {
                 taskGroup.PostSelectionTaskList.Clear();
-                taskGroup.PostSelectionTaskList.Add(new NorthWindsPush());
+                taskGroup.PostSelectionTaskList.Add(new NorthWinds_2());
                 taskGroup.PostSelectionTaskList.Add(new NorthWindsMisc());
                 taskGroup.PostSelectionTaskList.Add(new NorthWindsFreeze());
             }
