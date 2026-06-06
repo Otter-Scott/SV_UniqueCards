@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using static UnityEngine.Rendering.ReloadAttribute;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
+using AudioImportLib;
 
 [assembly: MelonInfo(typeof(SV_UniqueCards.Core), "SV_UniqueCards", "0.3.0", "Otter", null)]
 [assembly: MelonGame("Pengonauts", "StarVaders")]
@@ -32,13 +33,14 @@ namespace SV_UniqueCards
         }
         protected override void LateRegisterMod()
         {
+            base.LateRegisterMod();
 
-            PlayerCardData Card1 = new(ModContentManager.GetModCardName<OSS>())
+            /*PlayerCardData Card1 = new(ModContentManager.GetModCardName<Ablation>())
             {
             };
-            PlayerCardData Card2 = new(ModContentManager.GetModCardName<Fusion>())
+            PlayerCardData Card2 = new(ModContentManager.GetModCardName<Ablation>())
             {
-                Component = ModContentManager.GetModComponentName<TriggerComponent>()
+                Component = ModContentManager.GetModComponentName<CatalysedComponent>()
             };
             PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS>())
             {
@@ -48,15 +50,17 @@ namespace SV_UniqueCards
             var RoxyDeck = new List<PlayerCardData>
             {
                 new PlayerCardData(CardName.Exhaust),
-                Card3,
-                Card1
+                new PlayerCardData(CardName.Fuel),
+                new PlayerCardData(CardName.Catalyst),
+                Card2,
+                Card2
             };
 
             RegisterContentMod(new PilotModification(PilotName.Roxy)
             {
                 targetPilot = PilotName.Roxy,
                 startingCards = RoxyDeck.ToILCPP()
-            });
+            });*/
 
         }
 

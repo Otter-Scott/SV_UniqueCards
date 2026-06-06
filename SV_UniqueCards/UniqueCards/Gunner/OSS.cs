@@ -60,25 +60,19 @@ namespace SV_UniqueCards
 
         public override Il2CppCollections.HashSet<ComponentTrait> AllowedComponentTraits => new System.Collections.Generic.HashSet<ComponentTrait>()
         {
-            ComponentTrait.Basic,
-            ComponentTrait.SelectionLess
         }.ToILCPP();
 
 
         public override Il2CppCollections.HashSet<ComponentName> AllowedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
         {
+            ComponentName.SwiftPlus,
+            ComponentName.TacticalPlus,
             ModContentManager.GetModComponentName<OSSComponent>()
 
         }.ToILCPP();
 
         public override Il2CppCollections.HashSet<ComponentName> BlockedComponentNames => new System.Collections.Generic.HashSet<ComponentName>()
         {
-            ComponentName.Chilled,
-            ComponentName.Broken,
-            ComponentName.Echo,
-            ComponentName.Refreshed,
-            ComponentName.Risky,
-            ComponentName.Boosted
         }.ToILCPP();
 
         public override Il2CppCollections.HashSet<CardTrait> HiddenTraits => new System.Collections.Generic.HashSet<CardTrait>()

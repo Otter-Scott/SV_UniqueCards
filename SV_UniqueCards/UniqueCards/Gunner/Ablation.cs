@@ -121,8 +121,10 @@ namespace SV_UniqueCards
         public override Il2CppCollections.List<ATask> GetPostSelectionTaskList(OnCreateIDValue cardID)
         {
             Il2CppCollections.List<ATask> taskList = new();
-            
+
+
             taskList.Add(new Ablation_1());
+
 
             return taskList;
         }

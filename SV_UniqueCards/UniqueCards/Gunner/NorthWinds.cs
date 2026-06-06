@@ -134,6 +134,9 @@ namespace SV_UniqueCards
             }
 
             cardModel.HeatCost = 1;
+
+            cardModel.Traits.Add(CardTrait.Attack);
+
         }
     }
 }

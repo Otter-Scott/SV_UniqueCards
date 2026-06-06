@@ -123,7 +123,10 @@ namespace SV_UniqueCards
                 taskGroup.PostSelectionTaskList.Clear();
             }
 
-            cardModel.HiddenTraits = new System.Collections.Generic.HashSet<CardTrait>(){CardTrait.Random}.ToILCPP();
+            cardModel.HiddenTraits.Add(CardTrait.Random);
+
+            cardModel.Traits.Add(CardTrait.Tactic);
+
         }
 
         public override Il2CppCollections.List<ATask> GetPostSelectionTaskList(OnCreateIDValue cardID)
