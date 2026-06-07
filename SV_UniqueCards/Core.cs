@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using static UnityEngine.Rendering.ReloadAttribute;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
-using AudioImportLib;
 
 [assembly: MelonInfo(typeof(SV_UniqueCards.Core), "SV_UniqueCards", "0.3.0", "Otter", null)]
 [assembly: MelonGame("Pengonauts", "StarVaders")]
