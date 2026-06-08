@@ -21,7 +21,7 @@ Reset your Heat. For each Heat removed this way, add a Meltdown to your hand.
 
 - **Noel**: North Winds
 
-Pull all invaders down 1 tile. Make all cards in your hand Frozen, and immediately end your turn. Unused Heat sink is added to your Heat sink next turn.
+Pull all invaders down 1 tile. Unused Heat sink is added to your Heat sink next turn. *Unrepeatable*: Make all cards in your hand Frozen, and immediately end your turn. 
 
 - **Zeke**: One Small Step
 

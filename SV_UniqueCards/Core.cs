@@ -29,6 +29,7 @@ namespace SV_UniqueCards
         {
             base.EarlyRegisterMod();
             RegisterMoreInfoPanel("Destroy", "<b><color=#FFBF00>Destroy</color></b></nobr>: Temporarily remove card for the remainder of the battle. On purge effects do not trigger when a card is destroyed.");
+            RegisterMoreInfoPanel("Unrepeatable", "<b><color=#FFBF00>Unrepeatable</color></b></nobr>: This effect cannot be repeated.");
         }
         protected override void LateRegisterMod()
         {
@@ -38,15 +39,14 @@ namespace SV_UniqueCards
             {
                 Component = ModContentManager.GetModComponentName<HailComponent>()
             };
-            PlayerCardData Card2 = new(ModContentManager.GetModCardName<Ablation>())
+            PlayerCardData Card2 = new(ModContentManager.GetModCardName<OSS>())
             {
-                Component = ModContentManager.GetModComponentName<CatalysedComponent>()
+                Component = ModContentManager.GetModComponentName<OSSComponent>()
             };
-            PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS2>())
+            PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS1>())
             {
-                Component = ModContentManager.GetModComponentName<OSS2Component>()
             };
-            PlayerCardData Card4 = new PlayerCardData(CardName.Exhaust)
+            PlayerCardData Card4 = new PlayerCardData(CardName.Hyperfreeze)
             {
                 Component = ComponentName.Chilled
             };
@@ -61,8 +61,9 @@ namespace SV_UniqueCards
 
             var RoxyDeck = new List<PlayerCardData>
             {
+                Card3,
                 Card1,
-                Card2
+                Card4
             };
 
             RegisterContentMod(new PilotModification(PilotName.Roxy)
