@@ -26,7 +26,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "One Small Step";
 
         public override string Description =>
-            "Destroy this card and two random non-<nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards.\n Create one of three random 0 cost cards in your hand. ( <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Sherman's E4-5</i></font></b></smallcaps></color></size></voffset>, <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>A-10 Warthogs</i></font></b></smallcaps></color></size></voffset>, or <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>AN/SEQ-3</i></font></b></smallcaps></color></size></voffset> )";
+            "Purge this card and destroy two random non-<nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards.\n Create one of three random 0 cost cards in your hand. ( <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Sherman's E4-5</i></font></b></smallcaps></color></size></voffset>, <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>A-10 Warthogs</i></font></b></smallcaps></color></size></voffset>, or <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>AN/SEQ-3</i></font></b></smallcaps></color></size></voffset> )";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
