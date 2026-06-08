@@ -11,7 +11,7 @@ Unique Cards is a work-in-progress content mod for StarVaders. It aims to add a 
 
 *All cards are legendary*
 
-![](https://github.com/Otter-Scott/SV_UniqueCards/blob/master/SV_UniqueCards/gridfx/old/NorthWinds.png) ![](https://github.com/Otter-Scott/SV_UniqueCards/blob/master/SV_UniqueCards/gridfx/old/OSS2.png) ![](https://github.com/Otter-Scott/SV_UniqueCards/blob/master/SV_UniqueCards/gridfx/old/Sequence%2001.gif)
+![](https://github.com/Otter-Scott/SV_UniqueCards/blob/master/SV_UniqueCards/gridfx/old/NorthWinds.png)![](https://github.com/Otter-Scott/SV_UniqueCards/blob/master/SV_UniqueCards/gridfx/old/OSS2.png)![](https://github.com/Otter-Scott/SV_UniqueCards/blob/master/SV_UniqueCards/gridfx/old/Sequence%2001.gif)
 
 ## Current cards
 ### Gunner
