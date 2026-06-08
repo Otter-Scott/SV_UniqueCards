@@ -27,7 +27,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "Sherman's E4-5";
 
         public override string Description =>
-            "Strike tiles in a large cone above you.\nDismantles itself when played";
+            "Strike tiles in a large cone above you.\n<b><color=#FFBF00>Unrepeatable</color></b></nobr>: Dismantles itself when played.";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Attack
@@ -40,17 +40,18 @@ namespace SV_UniqueCards
         public override Rarity Rarity => Rarity.Created;
 
         public override bool IsToken => true;
+
+        public override int ClassBaseCost => 0;
+
+        public override Pile Destination => Pile.Hand;
         #endregion
 
         #region Components and traits
-        public override int ClassBaseCost => 0;
 
         public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
         {
-
-            MoreInfoWordName.FlamethrowerImage,
-            MoreInfoWordName.Deconstruct,
-            MoreInfoWordName.Purge,
+            ModContentManager.GetModMoreInfoName("Unrepeatable"),
+            MoreInfoWordName.Deconstruct
         }.ToILCPP();
 
         public override Il2CppCollections.HashSet<CardName> MoreInfoCards => new System.Collections.Generic.HashSet<CardName>()
@@ -80,7 +81,27 @@ namespace SV_UniqueCards
 
         #region Tasks
 
+        public override Il2CppCollections.List<TriggerEffect> GetTriggerEffects(OnCreateIDValue cardID)
+        {
+            List<Il2CppSystem.ValueTuple<Trigger, ACondition>> triggerConditions = new()
+            {
+                new (Trigger.PostTask, new AndCondition(
+                    new IsTypeCondition<PlayCardEndTask>(new RunningTaskValue()),
+                    new EqualsCondition(new CurrentCardIDValue(), cardID)
+                ))
+            };
 
+            List<ATask> triggerTasks = new()
+            {
+                new DeconstructTask(cardID)
+            };
+
+            return new List<TriggerEffect>()
+            {
+                new TriggerEffect(triggerConditions.ToILCPP(), triggerTasks.ToILCPP())
+
+            }.ToILCPP();
+        }
 
         public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
         {
@@ -100,7 +121,6 @@ namespace SV_UniqueCards
 
             taskList.Add(new OSS1_1VFX());
             taskList.Add(new OSS1_1());
-            taskList.Add(new DeconstructTask(cardID));
 
 
             return taskList;
@@ -137,7 +157,6 @@ namespace SV_UniqueCards
             taskList.Add(new OSS1_2VFX()); 
             taskList.Add(new OSS1_2());
             taskList.Add(new OSS1_2_Misc());
-            taskList.Add(new DeconstructTask(cardID));
 
 
             return taskList;

@@ -26,7 +26,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "North Winds";
 
         public override string Description =>
-            "Pull all invaders down 1 tile. Make all cards in your hand <nobr><b><i><color=#916fd7>Frozen</color></i></b></nobr>, and immediately end your turn.\nUnused <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink is added to your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink next turn.";
+            "Pull all invaders down 1 tile. Unused <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink is added to your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink next turn.\n<b><color=#FFBF00>Unrepeatable</color></b></nobr>: Make all cards in your hand <nobr><b><i><color=#916fd7>Frozen</color></i></b></nobr>, and immediately end your turn";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
@@ -37,13 +37,15 @@ namespace SV_UniqueCards
         public override PilotName PilotUnique => PilotName.Noel;
 
         public override Rarity Rarity => Rarity.Legendary;
+
+        public override int ClassBaseCost => 0;
         #endregion
 
         #region Components and traits
-        public override int ClassBaseCost => 0;
 
         public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
         {
+            ModContentManager.GetModMoreInfoName("Unrepeatable"),
             MoreInfoWordName.Pull,
             MoreInfoWordName.Frozen,
             MoreInfoWordName.Heat
@@ -78,6 +80,28 @@ namespace SV_UniqueCards
         #endregion
 
         #region Tasks
+
+        public override Il2CppCollections.List<TriggerEffect> GetTriggerEffects(OnCreateIDValue cardID)
+        {
+            List<Il2CppSystem.ValueTuple<Trigger, ACondition>> triggerConditions = new()
+            {
+                new (Trigger.PostTask, new AndCondition(
+                    new IsTypeCondition<PlayCardEndTask>(new RunningTaskValue()),
+                    new EqualsCondition(new CurrentCardIDValue(), cardID)
+                ))
+            };
+
+            List<ATask> triggerTasks = new()
+            {
+                new NorthWindsFreeze()
+            };
+
+            return new List<TriggerEffect>()
+            {
+                new TriggerEffect(triggerConditions.ToILCPP(), triggerTasks.ToILCPP())
+
+            }.ToILCPP();
+        }
         public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
         {
             Il2CppCollections.List<Selection> selections = new();
@@ -95,8 +119,7 @@ namespace SV_UniqueCards
             Il2CppCollections.List<ATask> taskList = new();
 
             taskList.Add(new NorthWinds_1());
-            taskList.Add(new NorthWindsMisc());
-            taskList.Add(new NorthWindsFreeze());
+            taskList.Add(new NorthWindsHeat());
 
             return taskList;
         }
@@ -121,6 +144,8 @@ namespace SV_UniqueCards
         public override void ModifyCardModel(CardModel cardModel)
         {
             cardModel.MoreInfoWordNames.Clear();
+
+            cardModel.MoreInfoWordNames.Add(ModContentManager.GetModMoreInfoName("Unrepeatable"));
             cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Push);
             cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Frozen);
             cardModel.MoreInfoWordNames.Add(MoreInfoWordName.Heat);
@@ -129,8 +154,7 @@ namespace SV_UniqueCards
             {
                 taskGroup.PostSelectionTaskList.Clear();
                 taskGroup.PostSelectionTaskList.Add(new NorthWinds_2());
-                taskGroup.PostSelectionTaskList.Add(new NorthWindsMisc());
-                taskGroup.PostSelectionTaskList.Add(new NorthWindsFreeze());
+                taskGroup.PostSelectionTaskList.Add(new NorthWindsHeat());
             }
 
             cardModel.HeatCost = 1;

@@ -204,9 +204,9 @@ namespace SV_UniqueCards
         }
     }
 
-    public class NorthWindsMisc : AModTask
+    public class NorthWindsHeat : AModTask
     {
-        public NorthWindsMisc()
+        public NorthWindsHeat()
         {
         }
 
