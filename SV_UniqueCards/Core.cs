@@ -34,13 +34,13 @@ namespace SV_UniqueCards
         {
             base.LateRegisterMod();
 
-            /*PlayerCardData Card1 = new(ModContentManager.GetModCardName<OSS3>())
+            /*PlayerCardData Card1 = new(ModContentManager.GetModCardName<NorthWinds>())
             {
-                Component = ModContentManager.GetModComponentName<OSS3Component>()
+                Component = ModContentManager.GetModComponentName<HailComponent>()
             };
-            PlayerCardData Card2 = new(ModContentManager.GetModCardName<OSS1>())
+            PlayerCardData Card2 = new(ModContentManager.GetModCardName<Ablation>())
             {
-                Component = ModContentManager.GetModComponentName<OSS1Component>()
+                Component = ModContentManager.GetModComponentName<CatalysedComponent>()
             };
             PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS2>())
             {
@@ -61,20 +61,8 @@ namespace SV_UniqueCards
 
             var RoxyDeck = new List<PlayerCardData>
             {
-                Card4,
-                Card4,
-                Card4,
-                Card4,
-                Card4,
-                Card4,
-                Card4,
                 Card1,
-                Card2,
-                Card3,
-                Card5,
-                Card5,
-                Card6,
-                Card6,
+                Card2
             };
 
             RegisterContentMod(new PilotModification(PilotName.Roxy)
