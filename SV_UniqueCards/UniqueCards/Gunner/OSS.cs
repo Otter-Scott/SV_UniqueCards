@@ -42,7 +42,7 @@ namespace SV_UniqueCards
         #endregion
 
         #region Components and traits
-        public override int ClassBaseCost => 3;
+        public override int ClassBaseCost => 4;
 
         public override Il2CppCollections.HashSet<MoreInfoWordName> MoreInfoWords => new System.Collections.Generic.HashSet<MoreInfoWordName>()
         {
