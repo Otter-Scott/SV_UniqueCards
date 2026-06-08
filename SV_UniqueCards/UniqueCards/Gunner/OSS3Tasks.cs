@@ -168,7 +168,11 @@ namespace SV_UniqueCards
                     for (int y = 0; y < gridY; y++)
                     {
                         Coord targetCoord = new Coord(column.x, y);
-                        MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(targetCoord).transform.position));
+
+                        if (!taskInstance.EncounterModel.GridModel.IsCoordEmpty(targetCoord))
+                        {
+                            MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(targetCoord).transform.position));
+                        }
                     }
 
                     for (int y = 0; y < gridY; y++)

@@ -17,7 +17,7 @@ using UnityEngine;
 using static UnityEngine.Rendering.ReloadAttribute;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
 
-[assembly: MelonInfo(typeof(SV_UniqueCards.Core), "SV_UniqueCards", "0.3.0", "Otter", null)]
+[assembly: MelonInfo(typeof(SV_UniqueCards.Core), "SV_UniqueCards", "1.0.1", "Otter", null)]
 [assembly: MelonGame("Pengonauts", "StarVaders")]
 
 namespace SV_UniqueCards
@@ -45,14 +45,15 @@ namespace SV_UniqueCards
             };
             PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS1>())
             {
+                Component = ModContentManager.GetModComponentName<OSS1Component>()
             };
-            PlayerCardData Card4 = new PlayerCardData(CardName.Hyperfreeze)
+            PlayerCardData Card4 = new PlayerCardData(CardName.Airlift)
             {
                 Component = ComponentName.Chilled
             };
-            PlayerCardData Card5 = new PlayerCardData(CardName.Jam)
+            PlayerCardData Card5 = new PlayerCardData(CardName.Airlift)
             {
-                Component = ComponentName.Fiery
+                Component = ComponentName.TacticalPlus
             };
             PlayerCardData Card6 = new PlayerCardData(CardName.Airlift)
             {
@@ -62,8 +63,14 @@ namespace SV_UniqueCards
             var RoxyDeck = new List<PlayerCardData>
             {
                 Card3,
-                Card1,
-                Card4
+                Card3,
+                Card4,
+                Card4,
+                Card5,
+                Card5,
+                Card5,
+                Card5,
+                Card5
             };
 
             RegisterContentMod(new PilotModification(PilotName.Roxy)

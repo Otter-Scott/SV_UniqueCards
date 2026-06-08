@@ -224,12 +224,12 @@ namespace SV_UniqueCards
 
             for (int i = 0; i < hand.Count; i++)
             {
-                if (taskInstance.EncounterModel.GetModelItem<CardModel>(hand[i].ToID()).Traits.Contains(CardTrait.Junk))
+                if (taskInstance.EncounterModel.GetModelItem<CardModel>(hand[i].ToID()).Traits.Contains(CardTrait.Junk) && !taskInstance.EncounterModel.GetModelItem<CardModel>(hand[i].ToID()).IsFree)
                 {
                     JunkList.Add(i);
                 };
 
-                if (taskInstance.EncounterModel.GetModelItem<CardModel>(hand[i].ToID()).Traits.Contains(CardTrait.Move))
+                if (taskInstance.EncounterModel.GetModelItem<CardModel>(hand[i].ToID()).Traits.Contains(CardTrait.Move) && !taskInstance.EncounterModel.GetModelItem<CardModel>(hand[i].ToID()).IsFree)
                 {
                     MoveList.Add(i);
                 };
