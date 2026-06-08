@@ -34,7 +34,7 @@ namespace SV_UniqueCards
             if (taskInstance.IsPreviewModeView)
                 yield break;
 
-            int Meltdowns = (int)Math.Ceiling(taskInstance.EncounterModel.Values[EncounterValue.Heat]/2.0);
+            int Meltdowns = taskInstance.EncounterModel.Values[EncounterValue.Heat];
 
             MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(taskInstance.EncounterModel.GridModel.GetPlayerCoord()).transform.position));
 

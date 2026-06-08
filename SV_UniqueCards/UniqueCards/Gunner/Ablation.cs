@@ -27,7 +27,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "Ablation";
 
         public override string Description =>
-            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each 2 <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.";
+            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic

@@ -44,6 +44,13 @@ namespace SV_UniqueCards
             new Coord(player.x, player.y + 3),
             new Coord(player.x + 1, player.y + 3),
             new Coord(player.x + 2, player.y + 3),
+            new Coord(player.x - 3, player.y + 4),
+            new Coord(player.x - 2, player.y + 4),
+            new Coord(player.x - 1, player.y + 4),
+            new Coord(player.x, player.y + 4),
+            new Coord(player.x + 1, player.y + 4),
+            new Coord(player.x + 2, player.y + 4),
+            new Coord(player.x + 3, player.y + 4),
             ];
 
             if (taskInstance.IsPreviewModeView)
@@ -101,8 +108,8 @@ namespace SV_UniqueCards
         private static System.Collections.IEnumerator PlayStandaloneVFX(UnityEngine.Vector3 spawnPosition)
         {
             GameObject OSS1 = new GameObject("OSS1VFX");
-            OSS1.transform.position = spawnPosition + new UnityEngine.Vector3(0f, 18f, 0f);
-            OSS1.transform.localScale = new UnityEngine.Vector3(9f, 9f, 9f);
+            OSS1.transform.position = spawnPosition + new UnityEngine.Vector3(0f, 22f, 0f);
+            OSS1.transform.localScale = new UnityEngine.Vector3(12f, 12f, 12f);
             OSS1.transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
 
             SpriteRenderer sr = OSS1.AddComponent<SpriteRenderer>();
@@ -151,6 +158,13 @@ namespace SV_UniqueCards
             new Coord(player.x, player.y + 3),
             new Coord(player.x + 1, player.y + 3),
             new Coord(player.x + 2, player.y + 3),
+            new Coord(player.x - 3, player.y + 4),
+            new Coord(player.x - 2, player.y + 4),
+            new Coord(player.x - 1, player.y + 4),
+            new Coord(player.x, player.y + 4),
+            new Coord(player.x + 1, player.y + 4),
+            new Coord(player.x + 2, player.y + 4),
+            new Coord(player.x + 3, player.y + 4),
             ];
 
             if (taskInstance.IsPreviewModeView)
@@ -319,8 +333,8 @@ namespace SV_UniqueCards
         private static System.Collections.IEnumerator PlayStandaloneVFX(UnityEngine.Vector3 spawnPosition)
         {
             GameObject OSS1 = new GameObject("OSS1VFX");
-            OSS1.transform.position = spawnPosition + new UnityEngine.Vector3(0f, 18f, 0f);
-            OSS1.transform.localScale = new UnityEngine.Vector3(9f, 9f, 9f);
+            OSS1.transform.position = spawnPosition + new UnityEngine.Vector3(0f, 22f, 0f);
+            OSS1.transform.localScale = new UnityEngine.Vector3(12f, 12f, 12f);
             OSS1.transform.rotation = UnityEngine.Quaternion.Euler(0, 0, 0);
 
             SpriteRenderer sr = OSS1.AddComponent<SpriteRenderer>();
