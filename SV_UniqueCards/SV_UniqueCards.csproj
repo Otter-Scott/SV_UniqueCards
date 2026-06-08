@@ -128,9 +128,11 @@
 	  <None Remove="UniqueCards\Gunner\Heat.png" />
 	  <None Remove="UniqueCards\Gunner\NorthWinds.png" />
 	  <None Remove="UniqueCards\Gunner\OSS.png" />
+	  <None Remove="UniqueCards\Gunner\OSS1.png" />
 	  <None Remove="UniqueCards\Gunner\OSS1Component.png" />
 	  <None Remove="UniqueCards\Gunner\OSS2.png" />
 	  <None Remove="UniqueCards\Gunner\OSS2Component.png" />
+	  <None Remove="UniqueCards\Gunner\OSS3.png" />
 	  <None Remove="UniqueCards\Gunner\OSS3Component.png" />
 	  <None Remove="UniqueCards\Gunner\OSSComponent.png" />
 	  <None Remove="UniqueCards\Gunner\TriggerComponent.png" />
@@ -225,6 +227,12 @@
 		</EmbeddedResource>
 		<EmbeddedResource Include="UniqueCards\Gunner\Fusion.png">
 			<LogicalName>SV_UniqueCards.Fusion.png</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="UniqueCards\Gunner\OSS1.png">
+			<LogicalName>SV_UniqueCards.OSS1.png</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="UniqueCards\Gunner\OSS3.png">
+			<LogicalName>SV_UniqueCards.OSS3.png</LogicalName>
 		</EmbeddedResource>
 		<EmbeddedResource Include="UniqueCards\Gunner\TriggerComponent.png">
 			<LogicalName>SV_UniqueCards.TriggerComponent.png</LogicalName>

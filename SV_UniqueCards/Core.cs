@@ -34,25 +34,47 @@ namespace SV_UniqueCards
         {
             base.LateRegisterMod();
 
-            /*PlayerCardData Card1 = new(ModContentManager.GetModCardName<Ablation>())
+            /*PlayerCardData Card1 = new(ModContentManager.GetModCardName<OSS3>())
             {
+                Component = ModContentManager.GetModComponentName<OSS3Component>()
             };
-            PlayerCardData Card2 = new(ModContentManager.GetModCardName<Ablation>())
+            PlayerCardData Card2 = new(ModContentManager.GetModCardName<OSS1>())
             {
-                Component = ModContentManager.GetModComponentName<CatalysedComponent>()
+                Component = ModContentManager.GetModComponentName<OSS1Component>()
             };
-            PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS>())
+            PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS2>())
             {
-                Component = ModContentManager.GetModComponentName<OSSComponent>()
+                Component = ModContentManager.GetModComponentName<OSS2Component>()
+            };
+            PlayerCardData Card4 = new PlayerCardData(CardName.Exhaust)
+            {
+                Component = ComponentName.Chilled
+            };
+            PlayerCardData Card5 = new PlayerCardData(CardName.Jam)
+            {
+                Component = ComponentName.Fiery
+            };
+            PlayerCardData Card6 = new PlayerCardData(CardName.Airlift)
+            {
+                Component = ComponentName.Fiery
             };
 
             var RoxyDeck = new List<PlayerCardData>
             {
-                new PlayerCardData(CardName.Exhaust),
-                new PlayerCardData(CardName.Fuel),
-                new PlayerCardData(CardName.Catalyst),
+                Card4,
+                Card4,
+                Card4,
+                Card4,
+                Card4,
+                Card4,
+                Card4,
+                Card1,
                 Card2,
-                Card2
+                Card3,
+                Card5,
+                Card5,
+                Card6,
+                Card6,
             };
 
             RegisterContentMod(new PilotModification(PilotName.Roxy)
