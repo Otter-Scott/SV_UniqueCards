@@ -27,7 +27,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "Ablation";
 
         public override string Description =>
-            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.\nIf unplayed, purge this card and ALL <nobr><b><i><color=#fd9756>Burnt</color></i></b></nobr> or <nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards in your hand.";
+            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each 2 <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
@@ -83,28 +83,6 @@ namespace SV_UniqueCards
         #endregion
 
         #region Tasks
-
-        public override Il2CppCollections.List<TriggerEffect> GetTriggerEffects(OnCreateIDValue cardID)
-        {
-            List<Il2CppSystem.ValueTuple<Trigger, ACondition>> triggerConditions = new()
-            {
-                new (Trigger.PreTask, new AndCondition(
-                    new IsTypeCondition<EndTurnTask>(new RunningTaskValue()),
-                    new CardInHandButNotBeingPlayedCondition(cardID)
-                ))
-            };
-
-            List<ATask> triggerTasks = new()
-            {
-                new AblationPurgeTask(cardID)
-            };
-
-            return new List<TriggerEffect>()
-            {
-                new TriggerEffect(triggerConditions.ToILCPP(), triggerTasks.ToILCPP())
-
-            }.ToILCPP();
-        }
 
         public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
         {

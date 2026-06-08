@@ -34,7 +34,7 @@ namespace SV_UniqueCards
             if (taskInstance.IsPreviewModeView)
                 yield break;
 
-            int heatInSink = taskInstance.EncounterModel.Values[EncounterValue.Heat];
+            int Meltdowns = (int)Math.Ceiling(taskInstance.EncounterModel.Values[EncounterValue.Heat]/2.0);
 
             MelonLoader.MelonCoroutines.Start(PlayStandaloneVFX(taskInstance.GridView.GetTileView(taskInstance.EncounterModel.GridModel.GetPlayerCoord()).transform.position));
 
@@ -46,7 +46,7 @@ namespace SV_UniqueCards
                 )
             ).Cast<Il2CppSystem.Object>();
 
-            for (int i = 0; i < heatInSink; i++)
+            for (int i = 0; i < Meltdowns; i++)
             {
                 yield return taskInstance.TaskEngine.ProcessTask(
                     new CreateCardTask(
@@ -87,38 +87,6 @@ namespace SV_UniqueCards
             {
                 UnityEngine.Object.Destroy(Fire);
             }
-        }
-    }
-
-
-
-    public class AblationPurgeTask : AModTask
-    {
-        public AblationPurgeTask()
-        {
-        }
-        public AblationPurgeTask(Il2CppSystem.Object cardID)
-        {
-            SetArg(ArgKey.CardID, cardID);
-        }
-
-        public override System.Collections.IEnumerator Execute(ATask taskInstance)
-        {
-            if (taskInstance.IsPreviewModeView)
-                yield break;
-
-            foreach (CardID cardID in taskInstance.EncounterModel.CardPlayModel.GetPile(Pile.Hand).ToMono().ToList())
-            {
-                CardModel card = taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID());
-
-                if (card.Traits.Contains(CardTrait.Junk) || card.IsBurnt)
-                {
-                    yield return taskInstance.TaskEngine.ProcessTask(
-                        new PurgeCardTask(cardID.BoxIl2CppObject())
-                    ).Cast<Il2CppSystem.Object>();
-                }
-            }
-
         }
     }
 
