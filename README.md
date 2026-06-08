@@ -7,7 +7,7 @@
 2. SVModHelper V0.2.3+ (https://github.com/Slaith12/SVModHelper): This mod utilises the classes in SVModHelper to function.
 
 ## Overview
-Unique Cards is a work-in-progress content mod for StarVaders. It aims to add a unique card for each of the game's pilot that supplements their playstyle, alongside a custom component for each card. The mod currently features four new cards for each gunner pilot with custom artworks and visual effects. 
+Unique Cards is a work-in-progress content mod for StarVaders. It aims to add a unique card for each of the game's pilot that supplements their playstyle, alongside a custom component for each card. The mod currently features a new card for each gunner pilot with custom artwork and visual effects. 
 
 *All cards are legendary*
 
