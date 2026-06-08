@@ -36,3 +36,6 @@ If you encounter any bugs or want to suggest changes, reach out to me in StarVad
 
 ## Acknowledgments
 - Slaith, JustSomeRandomGuy, Crabdog, and Axolotl for helping with development
+
+## Additional great mods
+- JustSomeRandomGuy's extra packs mods: https://github.com/Justsomerandomgal/SVMods
