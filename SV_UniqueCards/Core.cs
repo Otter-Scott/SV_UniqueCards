@@ -71,6 +71,10 @@ namespace SV_UniqueCards
                 startingCards = RoxyDeck.ToILCPP()
             });*/
 
+
+            // https://docs.unity3d.com/ScriptReference/ImageConversion.LoadImage.html
+            // https://docs.unity3d.com/ScriptReference/Texture2D.html
+            // https://docs.unity3d.com/ScriptReference/Sprite.Create.html
         }
 
     }
