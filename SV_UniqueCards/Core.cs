@@ -43,21 +43,19 @@ namespace SV_UniqueCards
             {
                 Component = ModContentManager.GetModComponentName<OSSComponent>()
             };
-            PlayerCardData Card3 = new(ModContentManager.GetModCardName<OSS1>())
+            PlayerCardData Card3 = new(ModContentManager.GetModCardName<Ablation>())
             {
-                Component = ModContentManager.GetModComponentName<OSS1Component>()
+                Component = ModContentManager.GetModComponentName<CatalysedComponent>()
             };
-            PlayerCardData Card4 = new PlayerCardData(CardName.Airlift)
+            PlayerCardData Card4 = new PlayerCardData(CardName.Exhaust)
             {
-                Component = ComponentName.Chilled
+                Component = ComponentName.Broken
             };
-            PlayerCardData Card5 = new PlayerCardData(CardName.Airlift)
+            PlayerCardData Card5 = new PlayerCardData(CardName.Flamethrower)
             {
-                Component = ComponentName.TacticalPlus
             };
-            PlayerCardData Card6 = new PlayerCardData(CardName.Airlift)
+            PlayerCardData Card6 = new PlayerCardData(CardName.Fuel)
             {
-                Component = ComponentName.Fiery
             };
 
             var RoxyDeck = new List<PlayerCardData>
@@ -66,11 +64,12 @@ namespace SV_UniqueCards
                 Card3,
                 Card4,
                 Card4,
+                Card4,
+                Card4,
+                Card4,
+                Card4,
+                Card4,
                 Card5,
-                Card5,
-                Card5,
-                Card5,
-                Card5
             };
 
             RegisterContentMod(new PilotModification(PilotName.Roxy)

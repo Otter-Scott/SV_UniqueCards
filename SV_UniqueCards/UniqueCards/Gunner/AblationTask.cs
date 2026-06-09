@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -90,36 +91,103 @@ namespace SV_UniqueCards
         }
     }
 
-    public class AblationMeldownTask : AModTask
+    public class Ablation_1_1 : AModTask
     {
-        public AblationMeldownTask()
+        public Ablation_1_1()
         {
+        }
+        public Ablation_1_1(Il2CppSystem.Object cardID)
+        {
+            SetArg(ArgKey.CardID, cardID);
         }
 
         public override System.Collections.IEnumerator Execute(ATask taskInstance)
         {
 
-            Il2CppSystem.Object primaryCardID = taskInstance.GetArg<Il2CppSystem.Object>(ArgKey.CardID);
-
-            if (primaryCardID != null)
-            {
-                yield return taskInstance.TaskEngine.ProcessTask(
-                    new PurgeCardTask(primaryCardID)
-                ).Cast<Il2CppSystem.Object>();
-            }
-
             Pile[] pilesToScan = { Pile.Hand, Pile.Draw, Pile.Discard };
 
             System.Collections.Generic.List<CardID> meltdownCards = pilesToScan
-                .SelectMany(pile => taskInstance.EncounterModel.CardPlayModel.GetPile(pile).ToMono())
-                .Where(cardID => cardID.CardName == CardName.Meltdown)
-                .OrderByDescending(cardID => {return taskInstance.EncounterModel.GetModelItem<CardModel>(cardID.ToID()).IsBurnt;})
+                .SelectMany(pile => taskInstance.EncounterModel.CardPlayModel.GetPile(pile).ToMono().Select(cardID => new { cardID, pile }))
+                .Where(card => card.cardID.CardName == CardName.Meltdown)
+                .OrderByDescending(card => { return taskInstance.EncounterModel.GetModelItem<CardModel>(card.cardID.ToID()).IsBurnt; })
+                .ThenBy(card => System.Array.IndexOf(pilesToScan, card.pile))
+                .Select(card => card.cardID)
                 .ToList();
 
-            yield return taskInstance.TaskEngine.ProcessTask(
-                new PurgeCardTask(meltdownCards[0].BoxIl2CppObject())
-            ).Cast<Il2CppSystem.Object>();
+            Il2CppSystem.Object cardID = taskInstance.GetArg<Il2CppSystem.Object>(ArgKey.CardID);
 
+            if (meltdownCards.Count > 0)
+            {
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new MoveCardTask(meltdownCards[0].BoxIl2CppObject(), Pile.Hand, false, new Il2CppSystem.Nullable<float>(0.2f))
+                ).Cast<Il2CppSystem.Object>();
+
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new PurgeCardTask(meltdownCards[0].BoxIl2CppObject())
+                ).Cast<Il2CppSystem.Object>();
+
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new SkipNextTask()
+                ).Cast<Il2CppSystem.Object>();
+            }
+
+            else
+            {
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new PreviewWhiffTask(cardID)
+                ).Cast<Il2CppSystem.Object>();
+            }
+        }
+    }
+
+    public class Ablation_1_2 : AModTask
+    {
+        public Ablation_1_2()
+        {
+        }
+
+        public Ablation_1_2(Il2CppSystem.Object cardID)
+        {
+            SetArg(ArgKey.CardID, cardID);
+        }
+
+        public override System.Collections.IEnumerator Execute(ATask taskInstance)
+        {
+
+            Pile[] pilesToScan = { Pile.Hand, Pile.Draw, Pile.Discard };
+
+            System.Collections.Generic.List<CardID> junkCards = pilesToScan
+                .SelectMany(pile => taskInstance.EncounterModel.CardPlayModel.GetPile(pile).ToMono().Select(cardID => new { cardID, pile }))
+                .Where(card => taskInstance.EncounterModel.GetModelItem<CardModel>(card.cardID.ToID()).Traits.Contains(CardTrait.Junk))
+                .OrderByDescending(card => {return taskInstance.EncounterModel.GetModelItem<CardModel>(card.cardID.ToID()).IsBurnt;})
+                .ThenBy(card => taskInstance.EncounterModel.GetModelItem<CardModel>(card.cardID.ToID()).Traits.Count)
+                .ThenBy(card => System.Array.IndexOf(pilesToScan, card.pile))
+                .Select(card => card.cardID)
+                .ToList();
+
+            CardID cardID = taskInstance.GetArg<CardID>(ArgKey.CardID);
+
+            if (junkCards.Count > 0)
+            {
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new MoveCardTask(junkCards[0].BoxIl2CppObject(), Pile.Hand, false, new Il2CppSystem.Nullable<float>(0.2f))
+                ).Cast<Il2CppSystem.Object>();
+
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new PurgeCardTask(junkCards[0].BoxIl2CppObject())
+                ).Cast<Il2CppSystem.Object>();
+
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new SkipNextTask()
+                ).Cast<Il2CppSystem.Object>();
+            }
+
+            else
+            {
+                yield return taskInstance.TaskEngine.ProcessTask(
+                    new PreviewWhiffTask(cardID.BoxIl2CppObject())
+                ).Cast<Il2CppSystem.Object>();
+            }
         }
     }
 

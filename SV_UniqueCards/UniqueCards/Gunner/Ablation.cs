@@ -27,7 +27,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "Ablation";
 
         public override string Description =>
-            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.";
+            "Reset your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr>. For each <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> removed this way, add a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> to your hand.\nWhile this card is in your hand, burning a card purges a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> instead.";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
@@ -84,6 +84,29 @@ namespace SV_UniqueCards
 
         #region Tasks
 
+        public override Il2CppCollections.List<TriggerEffect> GetTriggerEffects(OnCreateIDValue cardID)
+        {
+            List<Il2CppSystem.ValueTuple<Trigger, ACondition>> triggerConditions = new()
+            {
+                new (Trigger.PreSkipTask, new AndCondition(
+                    new IsTypeCondition<SetCardBurntTask>(new RunningTaskValue()),
+                    new CardInHandButNotBeingPlayedCondition(cardID),
+                    new NotCondition(new CardNameInPileCondition(CardName.Fuel , Pile.Hand))
+                ))
+            };
+
+            List<ATask> triggerTasks = new()
+            {
+                new Ablation_1_1(cardID),
+            };
+
+            return new List<TriggerEffect>()
+            {
+                new TriggerEffect(triggerConditions.ToILCPP(), triggerTasks.ToILCPP())
+
+            }.ToILCPP();
+        }
+
         public override Il2CppCollections.List<Selection> GetSelections(OnCreateIDValue cardID)
         {
             Il2CppCollections.List<Selection> selections = new();
@@ -113,7 +136,7 @@ namespace SV_UniqueCards
     {
         public override string DisplayName => "Catalysed";
 
-        public override string Description => "While this card is in your hand, burning a card purges a <font=\"StarvadersGun-Regular SDF\"><size=150%><voffset=-0.11em>Meltdown</i></font></b></smallcaps></color></size></voffset> instead.";
+        public override string Description => "Can purge all <nobr><b><i><color=#5cdd3a>Junk</color></i></b></nobr> cards as well.";
 
         public override ClassName Class => ClassName.Gunner;
 
@@ -121,6 +144,12 @@ namespace SV_UniqueCards
         {
             return base.GetOnCreateTaskList(cardID);
         }
+
+        public override void ModifyCardModel(CardModel cardModel)
+        {
+            cardModel.TriggerEffects.Clear();
+        }
+
         public override Il2CppCollections.List<TriggerEffect> GetTriggerEffects(OnCreateIDValue cardID)
         {
             List<Il2CppSystem.ValueTuple<Trigger, ACondition>> triggerConditions = new()
@@ -128,18 +157,13 @@ namespace SV_UniqueCards
                 new (Trigger.PreSkipTask, new AndCondition(
                     new IsTypeCondition<SetCardBurntTask>(new RunningTaskValue()),
                     new CardInHandButNotBeingPlayedCondition(cardID),
-                    new OrCondition(
-                        new CardNameInPileCondition(CardName.Meltdown , Pile.Hand),
-                        new CardNameInPileCondition(CardName.Meltdown , Pile.Discard),
-                        new CardNameInPileCondition(CardName.Meltdown , Pile.Draw)),
                     new NotCondition(new CardNameInPileCondition(CardName.Fuel , Pile.Hand))
                 ))
             };
 
             List<ATask> triggerTasks = new()
             {
-                new AblationMeldownTask(),
-                new SkipNextTask(),
+                new Ablation_1_2(cardID),
             };
 
             return new List<TriggerEffect>()
