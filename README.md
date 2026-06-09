@@ -17,7 +17,7 @@ Unique Cards is a work-in-progress content mod for StarVaders. It aims to add a 
 ### Gunner
 - **Roxy**: Ablation
 
-Reset your Heat. For each Heat removed this way, add a Meltdown to your hand.
+Reset your Heat. For each Heat removed this way, add a Meltdown to your hand. While this card is in your hand, burning a card purges a Meltdown instead.
 
 - **Noel**: North Winds
 
