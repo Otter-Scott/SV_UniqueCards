@@ -47,9 +47,9 @@ namespace SV_UniqueCards
             {
                 Component = ModContentManager.GetModComponentName<CatalysedComponent>()
             };
-            PlayerCardData Card4 = new PlayerCardData(CardName.Exhaust)
+            PlayerCardData Card4 = new PlayerCardData(CardName.ColdSnap)
             {
-                Component = ComponentName.Broken
+                Component = ComponentName.Refreshed
             };
             PlayerCardData Card5 = new PlayerCardData(CardName.Flamethrower)
             {
@@ -60,16 +60,8 @@ namespace SV_UniqueCards
 
             var RoxyDeck = new List<PlayerCardData>
             {
-                Card3,
-                Card3,
                 Card4,
-                Card4,
-                Card4,
-                Card4,
-                Card4,
-                Card4,
-                Card4,
-                Card5,
+                Card4
             };
 
             RegisterContentMod(new PilotModification(PilotName.Roxy)

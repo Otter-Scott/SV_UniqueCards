@@ -26,7 +26,7 @@ namespace SV_UniqueCards
         public override string DisplayName => "North Winds";
 
         public override string Description =>
-            "Pull all invaders down 1 tile. Unused <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink is added to your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink next turn.\n<b><color=#FFBF00>Unrepeatable</color></b></nobr>: Make all cards in your hand <nobr><b><i><color=#916fd7>Frozen</color></i></b></nobr>, and immediately end your turn";
+            "Pull all invaders down 1 tile and draw 2 cards. Unused <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink is added to your <nobr><sprite=\"TextIcons\" name=\"Heat\"> <b><color=#FFBF00>Heat</color></b></nobr> sink next turn.\n<b><color=#FFBF00>Unrepeatable</color></b></nobr>: Make all cards in your hand <nobr><b><i><color=#916fd7>Frozen</color></i></b></nobr>, and immediately end your turn";
         public override Il2CppCollections.HashSet<CardTrait> Traits => new System.Collections.Generic.HashSet<CardTrait>()
         {
             CardTrait.Tactic
@@ -118,7 +118,9 @@ namespace SV_UniqueCards
         {
             Il2CppCollections.List<ATask> taskList = new();
 
+
             taskList.Add(new NorthWinds_1());
+            taskList.Add(new DrawTopDrawPileTask(new Il2CppSystem.Int32 { m_value = 2 }.BoxIl2CppObject()));
             taskList.Add(new NorthWindsHeat());
 
             return taskList;
@@ -154,6 +156,7 @@ namespace SV_UniqueCards
             {
                 taskGroup.PostSelectionTaskList.Clear();
                 taskGroup.PostSelectionTaskList.Add(new NorthWinds_2());
+                taskGroup.PostSelectionTaskList.Add(new DrawTopDrawPileTask(new Il2CppSystem.Int32 { m_value = 2 }.BoxIl2CppObject()));
                 taskGroup.PostSelectionTaskList.Add(new NorthWindsHeat());
             }
 
